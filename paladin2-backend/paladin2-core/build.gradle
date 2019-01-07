@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+}
+// 将paladin-core作为jar包加载到paladin2-api中
+// 下面几句话很重要
+bootRun.enabled = false
+bootJar.enabled = false
+jar.enabled = true

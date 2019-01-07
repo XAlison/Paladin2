@@ -1,0 +1,20 @@
+package org.zhangxiao.paladin2.core.exception;
+
+
+import org.zhangxiao.paladin2.core.exception.error.IBizError;
+
+public class BizException extends Exception {
+
+    private static final long serialVersionUID = 1572164595152865129L;
+
+    private IBizError error;
+
+    public BizException(IBizError error) {
+        super(error.getMessage());
+        this.error = error;
+    }
+
+    public IBizError getError() {
+        return error;
+    }
+}

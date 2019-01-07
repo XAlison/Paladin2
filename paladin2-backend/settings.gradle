@@ -1,0 +1,5 @@
+rootProject.name = 'paladin2'
+include 'paladin2-generator'
+include 'paladin2-api'
+include 'paladin2-core'
+

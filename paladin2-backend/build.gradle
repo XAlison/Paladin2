@@ -1,0 +1,32 @@
+allprojects {
+    group = 'org.zhangxiao'
+    version = '0.0.1'
+}
+subprojects { subProject->
+    ext {
+        springBootVersion           = '2.1.1.RELEASE'
+        lib_mybatis_plus            = 'com.baomidou:mybatis-plus:3.0.7.1'
+        lib_mybatis_plus_starter    = 'com.baomidou:mybatis-plus-boot-starter:3.0.7.1'
+        lib_mybatis_plus_generator  = 'com.baomidou:mybatis-plus-generator:3.0.7.1'
+    }
+    buildscript {
+        // 使用阿里云maven仓库
+        repositories {
+            maven {
+                name "AliyunMavenRepo"
+                url "http://maven.aliyun.com/nexus/content/groups/public/"
+            }
+        }
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+    }
+
+    // 使用阿里云maven仓库
+    repositories {
+        maven {
+            name "AliyunMavenRepo"
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+
+/*
+文档：https://docs.gradle.org/4.10.2/userguide/java_plugin.html
+compile已被废弃，被implementation代替
+runtime已被废弃，被runtimeOnly代替
+*/
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    runtimeOnly 'mysql:mysql-connector-java'
+    //数据库相关
+    implementation lib_mybatis_plus
+    implementation lib_mybatis_plus_generator
+    implementation 'org.apache.velocity:velocity-engine-core:2.0'
+}

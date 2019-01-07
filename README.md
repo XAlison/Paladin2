@@ -9,16 +9,17 @@
 
 本项目分离了前后端，共分为2个主工程
 
-- 前端工程：`paladin-boss`
+- 后端工程：`paladin-backend`
 
-- 后端工程：`paladin-api`
+- 前端工程：`paladin-frontend-admin`
 
-## paladin-boss
-- 核心：Angular `7.0.0`
-- UI：NG-ZORRO(Ant Design of Angular)
-
-## paladin-api
+## paladin-backend
 
 - 核心：Spring Boot `2.1.1`
 - 持久层：Mybatis Plus `3.0.7.1`
 - 权限：Shiro `1.4.0`
+
+## paladin-frontend-admin
+
+- 核心：Angular `7.0.0`
+- UI：NG-ZORRO(Ant Design of Angular)

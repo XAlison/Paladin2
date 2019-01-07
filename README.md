@@ -19,5 +19,6 @@
 
 ## paladin-api
 
-- 核心：`Spring Boot`
-- 持久层：`Mybatis Plus`
+- 核心：Spring Boot `2.1.1`
+- 持久层：Mybatis Plus `3.0.7.1`
+- 权限：Shiro `1.4.0`

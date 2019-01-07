@@ -5,10 +5,6 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = 1.8
 
 
-// 排除默认web容器Tomcat
-configurations {
-    compile.exclude module: 'spring-boot-starter-tomcat'
-}
 
 /*
 文档：https://docs.gradle.org/4.10.2/userguide/java_plugin.html
@@ -21,13 +17,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
     // 数据库相关
     runtimeOnly 'mysql:mysql-connector-java'
-    implementation lib_mybatis_plus
-    implementation lib_mybatis_plus_starter
     // lombok
     compileOnly 'org.projectlombok:lombok'
     // 单元测试
     // testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation project(":paladin2-common")
+    implementation project(":paladin2-core")
+}
+// 排除默认web容器Tomcat
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
 }
 sourceSets {
     main.resources.srcDirs = [

@@ -6,10 +6,9 @@ sourceCompatibility = 1.8
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // lombok
     compileOnly 'org.projectlombok:lombok'
+    implementation lib_mybatis_plus
+    implementation lib_mybatis_plus_starter
+    implementation project(":paladin2-common")
 }
-// 将paladin-core作为jar包加载到paladin2-api中
-// 下面几句话很重要
-bootRun.enabled = false
-bootJar.enabled = false
-jar.enabled = true

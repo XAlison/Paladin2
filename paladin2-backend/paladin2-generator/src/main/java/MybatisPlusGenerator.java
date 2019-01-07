@@ -33,7 +33,7 @@ public class MybatisPlusGenerator {
     // 指定生成的目录（以整个工程的根目录为准）
     private static final String OUT_PATH = "/paladin2-core/src/main/java";
     // 指定生成的目录（以整个工程的根目录为准）
-    private static final String PACKAGE_NAME = "org.zhangxiao.paladin2.core";
+    private static final String PACKAGE_NAME = "org.zhangxiao.paladin2.core.admin";
 
     /**
      * <p>

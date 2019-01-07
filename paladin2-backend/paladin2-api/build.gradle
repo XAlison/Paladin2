@@ -21,7 +21,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     // 单元测试
     // testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation project(":paladin2-core")
+    implementation project(":paladin2-common")
+    implementation project(":paladin2-core-admin")
 }
 // 排除默认web容器Tomcat
 configurations {

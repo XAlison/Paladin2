@@ -6,7 +6,9 @@ sourceCompatibility = 1.8
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
+    implementation "org.apache.velocity:velocity-engine-core:2.0"
     implementation lib_mybatis_plus
     implementation lib_mybatis_plus_generator
 }

@@ -12,3 +12,9 @@ dependencies {
     implementation lib_mybatis_plus_starter
     implementation project(":paladin2-common")
 }
+sourceSets {
+    main.resources.srcDirs = [
+            'src/main/resources',
+            'src/main/java/org/zhangxiao/paladin2/core/mapper/xml',
+    ]
+}

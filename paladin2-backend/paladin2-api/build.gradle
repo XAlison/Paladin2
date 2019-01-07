@@ -30,6 +30,5 @@ configurations {
 sourceSets {
     main.resources.srcDirs = [
             'src/main/resources',
-            'src/main/java/cn/cnvp/hd/mapper/xml'
     ]
 }

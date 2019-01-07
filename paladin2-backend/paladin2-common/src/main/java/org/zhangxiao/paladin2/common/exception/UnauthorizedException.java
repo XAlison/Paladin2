@@ -1,4 +1,4 @@
-package org.zhangxiao.paladin2.core.exception;
+package org.zhangxiao.paladin2.common.exception;
 
 /**
  *  用于报401

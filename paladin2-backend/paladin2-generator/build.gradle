@@ -15,5 +15,5 @@ dependencies {
     //数据库相关
     implementation lib_mybatis_plus
     implementation lib_mybatis_plus_generator
-    implementation 'org.apache.velocity:velocity-engine-core:2.0'
+    implementation 'org.apache.velocity:velocity-engine-common:2.0'
 }

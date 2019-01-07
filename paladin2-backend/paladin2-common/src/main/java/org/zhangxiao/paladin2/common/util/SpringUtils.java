@@ -1,4 +1,4 @@
-package org.zhangxiao.paladin2.core.util;
+package org.zhangxiao.paladin2.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.boot.system.ApplicationHome;

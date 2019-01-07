@@ -1,10 +1,9 @@
-package org.zhangxiao.paladin2.core.exception.error;
+package org.zhangxiao.paladin2.common.exception.error;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
-import org.zhangxiao.paladin2.core.exception.error.IBizError;
 
 /**
  * 业务异常信息

@@ -3,7 +3,7 @@ package org.zhangxiao.paladin2.api;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.zhangxiao.paladin2.core.util.SpringUtils;
+import org.zhangxiao.paladin2.common.util.SpringUtils;
 
 @MapperScan("org.zhangxiao.paladin2")
 @SpringBootApplication

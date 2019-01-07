@@ -29,7 +29,7 @@ public class MybatisPlusGenerator {
     };
     // 指定生成的目录（以整个工程的根目录为准）
     // TODO 需要調整
-    private static final String OUT_PATH = "/paladin2-core/src/main/java";
+    private static final String OUT_PATH = "/paladin2-common/src/main/java";
 
     /**
      * <p>
@@ -106,7 +106,7 @@ public class MybatisPlusGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("org.zhangxiao.paladin2.core");
+        pc.setParent("org.zhangxiao.paladin2.common");
         mpg.setPackageInfo(pc);
 
         //不生成 Controller

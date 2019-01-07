@@ -1,7 +1,7 @@
-package org.zhangxiao.paladin2.core.exception;
+package org.zhangxiao.paladin2.common.exception;
 
 
-import org.zhangxiao.paladin2.core.exception.error.IBizError;
+import org.zhangxiao.paladin2.common.exception.error.IBizError;
 
 public class BizException extends Exception {
 

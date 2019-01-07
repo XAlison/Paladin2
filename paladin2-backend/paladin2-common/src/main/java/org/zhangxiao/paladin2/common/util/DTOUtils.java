@@ -1,8 +1,8 @@
-package org.zhangxiao.paladin2.core.util;
+package org.zhangxiao.paladin2.common.util;
 
 import org.springframework.validation.BindingResult;
-import org.zhangxiao.paladin2.core.exception.BizException;
-import org.zhangxiao.paladin2.core.exception.error.BizError;
+import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.common.exception.error.BizError;
 
 public class DTOUtils {
     public static void checkThrow(BindingResult bindingResult) throws BizException {

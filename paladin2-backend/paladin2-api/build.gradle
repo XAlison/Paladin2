@@ -27,7 +27,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     // 单元测试
     // testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation project(":paladin2-core")
+    implementation project(":paladin2-common")
 }
 sourceSets {
     main.resources.srcDirs = [

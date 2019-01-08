@@ -10,7 +10,8 @@ logging:
 
 paladin2:
 #  admin-salt: 默认值（salt_2019-1-8 09:42:40_paladin2）
-#  swagger-enable: 默认值（false）
+  swagger-enable: true # 默认值（false）
+  
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -38,4 +39,4 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     #配置JdbcTypeForNull
-    jdbc-type-for-null: 'null'
+#    jdbc-type-for-null: 'null'

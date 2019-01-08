@@ -60,6 +60,9 @@ public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> imple
         if (adminId != null) {
             // 更新逻辑
             sysAdmin = baseMapper.selectById(adminId);
+            if (sysAdmin == null) {
+                throw new BizException(AdminBizError.ADMIN_NOT_EXIST);
+            }
             sysAdmin.setNickName(adminDTO.getNickName());
             if (!StrUtils.isEmpty(adminDTO.getPassword())) {
                 sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));

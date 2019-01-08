@@ -1,10 +1,22 @@
 package org.zhangxiao.paladin2.core.admin.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.common.util.StrUtils;
+import org.zhangxiao.paladin2.core.admin.AdminBizError;
+import org.zhangxiao.paladin2.core.admin.bean.AdminDTO;
+import org.zhangxiao.paladin2.core.admin.bean.AdminRowVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysAdmin;
 import org.zhangxiao.paladin2.core.admin.mapper.SysAdminMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysAdminService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -17,4 +29,78 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> implements ISysAdminService {
 
+    // 便于在配置中进行更改
+    @Value("${paladin2.admin-salt}")
+    private static final String PSW_SALT = "salt_2019-1-8 09:42:40_paladin2";
+
+    @Autowired
+    private SysAdminRoleService sysAdminRoleService;
+
+    public static void main(String[] args) {
+        SysAdminService sysAdminService = new SysAdminService();
+        System.out.println(sysAdminService.md5Psw("123"));
+    }
+
+    @Override
+    public String md5Psw(String password) {
+        return StrUtils.md5(password + PSW_SALT);
+    }
+
+    @Override
+    public List<AdminRowVO> getList() {
+        List<AdminRowVO> list = Optional.ofNullable(baseMapper.getRowVOList())
+                .orElse(new ArrayList<>());
+        list.forEach(item -> item.setRoleIdList(sysAdminRoleService.getRoleIdList(item.getId())));
+        return list;
+    }
+
+    @Override
+    public void saveOne(Long adminId, AdminDTO adminDTO) throws BizException {
+        SysAdmin sysAdmin;
+        if (adminId != null) {
+            // 更新逻辑
+            sysAdmin = baseMapper.selectById(adminId);
+            sysAdmin.setNickName(adminDTO.getNickName());
+            if (!StrUtils.isEmpty(adminDTO.getPassword())) {
+                sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
+            }
+            sysAdmin.setNickName(adminDTO.getNickName());
+            sysAdmin.setUpdateTime(LocalDateTime.now());
+            sysAdmin.updateById();
+        } else {
+            // 创建逻辑
+            sysAdmin = new SysAdmin();
+            if (baseMapper.countByAccount(adminDTO.getAccount()) > 0) {
+                throw new BizException(AdminBizError.ADMIN_USERNAME_EXIST);
+            }
+            if (StrUtils.isEmpty(adminDTO.getPassword())) {
+                throw new BizException(AdminBizError.ADMIN_PASSWORD_REQUIRED);
+            }
+            sysAdmin.setAccount(adminDTO.getAccount());
+            sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
+            sysAdmin.setCreateTime(LocalDateTime.now());
+            sysAdmin.setNickName(adminDTO.getNickName());
+            sysAdmin.insert();
+        }
+        sysAdminRoleService.saveRelation(sysAdmin.getId(), adminDTO.getRoleIdList());
+    }
+
+    @Override
+    public void deleteOne(Long adminId) throws BizException {
+        SysAdmin admin = Optional.ofNullable(baseMapper.selectById(adminId))
+                .orElseThrow(() -> new BizException(AdminBizError.ADMIN_NOT_EXIST));
+        if (admin.getId().equals(1L)) {
+            throw new BizException(AdminBizError.ADMIN_CANNOT_DELETE);
+        }
+        baseMapper.deleteById(adminId);
+        sysAdminRoleService.deleteRelation(adminId);
+    }
+
+    @Override
+    public AdminRowVO getOne(Long adminId) throws BizException {
+        AdminRowVO vo = Optional.ofNullable(baseMapper.getRowVO(adminId))
+                .orElseThrow(() -> new BizException(AdminBizError.ADMIN_NOT_EXIST));
+        vo.setRoleIdList(sysAdminRoleService.getRoleIdList(adminId));
+        return vo;
+    }
 }

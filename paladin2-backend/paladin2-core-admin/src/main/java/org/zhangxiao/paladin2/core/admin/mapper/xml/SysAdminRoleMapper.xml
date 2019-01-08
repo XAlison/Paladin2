@@ -12,5 +12,18 @@
     <sql id="Base_Column_List">
         admin_id, role_id
     </sql>
+    <select id="getList" resultType="java.lang.Long">
+        select role_id from sys_admin_role where admin_id = #{adminId}
+    </select>
+    <insert id="saveRelation">
+        INSERT INTO `sys_admin_role` (`admin_id`, `role_id`)
+        VALUES
+        <foreach collection="roleIdList" item="roleId" separator="," index="idx">
+            (#{adminId}, #{roleId})
+        </foreach>
+    </insert>
+    <delete id="deleteRelation">
+        delete from sys_admin_role where admin_id = #{adminId}
+    </delete>
 
 </mapper>

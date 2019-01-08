@@ -22,4 +22,14 @@
         id, account, password, nick_name, mobile, create_time, update_time, login_time, login_count, remark, status
     </sql>
 
+    <select id="countByAccount" resultType="java.lang.Integer">
+        select count(*) from sys_admin where account = #{account}
+    </select>
+    <select id="getRowVOList" resultType="org.zhangxiao.paladin2.core.admin.bean.AdminRowVO">
+        SELECT id,account,nick_name,create_time,update_time,status FROM sys_admin order by id desc
+    </select>
+    <select id="getRowVO" resultType="org.zhangxiao.paladin2.core.admin.bean.AdminRowVO">
+        SELECT id,account,nick_name,create_time,update_time,status FROM sys_admin where id = #{adminId}
+    </select>
+
 </mapper>

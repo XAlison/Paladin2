@@ -17,8 +17,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2SpringBoot {
 
     // 便于在配置中进行更改
-    @Value("${paladin2.swagger-enable}")
-    private boolean SWAGGER_ENABLE = false;
+    @Value("${paladin2.swagger-enable:false}")
+    private boolean SWAGGER_ENABLE;
 
     @Bean
     public Docket createRestApi() {

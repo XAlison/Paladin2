@@ -9,8 +9,8 @@ logging:
     org.springframework.web: debug
 
 paladin2:
-#  admin-salt: 管理员密码盐
-  swagger-enable: false #默认禁用
+#  admin-salt: 默认值（salt_2019-1-8 09:42:40_paladin2）
+#  swagger-enable: 默认值（false）
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

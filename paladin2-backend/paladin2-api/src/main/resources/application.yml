@@ -7,7 +7,10 @@ logging:
   level:
     org.zhangxiao.paladin2.api: debug
     org.springframework.web: debug
-#
+
+paladin2:
+#  admin-salt: 管理员密码盐
+  swagger-enable: false #默认禁用
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

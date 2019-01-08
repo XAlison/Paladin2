@@ -31,7 +31,7 @@ public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> imple
 
     // 便于在配置中进行更改
     @Value("${paladin2.admin-salt}")
-    private static final String PSW_SALT = "salt_2019-1-8 09:42:40_paladin2";
+    private String PSW_SALT = "salt_2019-1-8 09:42:40_paladin2";
 
     @Autowired
     private SysAdminRoleService sysAdminRoleService;

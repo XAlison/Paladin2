@@ -1,14 +1,13 @@
 # Paladin2-Manage
 
-该项目由[Angular CLI](https://github.com/angular/angular-cli) version 7.1.4 生成
-This project was generated with .
+该项目由[Angular CLI](https://github.com/angular/angular-cli) `7.1.4` 生成。
 
 ## 开发
 
 可以通过以下三个命令来启动开发服务器，本地访问地址 `http://localhost:4200/`
 
-- `npm run start-local` 代理本地后端服务器
-- `npm run start-remote` 代理远程后端服务器
+- `npm run start-local` 代理`本地`后端服务器(配置文件`proxy.local.conf.json`)
+- `npm run start-remote` 代理`远程`后端服务器(配置文件`proxy.remote.conf.json`)
 - `npm run start` 默认代理本地后端服务器
 
 ## 构建

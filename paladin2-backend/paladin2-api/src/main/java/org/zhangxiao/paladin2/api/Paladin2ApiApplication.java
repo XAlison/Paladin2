@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.zhangxiao.paladin2.common.util.SpringUtils;
 
 @MapperScan("org.zhangxiao.paladin2")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "org.zhangxiao.paladin2")
 public class Paladin2ApiApplication {
 
     public static void main(String[] args) {

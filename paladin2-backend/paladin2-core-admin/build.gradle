@@ -11,12 +11,12 @@ dependencies {
     implementation lib_mybatis_plus
     implementation lib_mybatis_plus_starter
 //	Shiro
-    compile "org.apache.shiro:shiro-spring-boot-starter:1.4.0"
+//    compile "org.apache.shiro:shiro-spring-boot-starter:1.4.0"
     implementation project(":paladin2-common")
 }
 sourceSets {
     main.resources.srcDirs = [
             'src/main/resources',
-            'src/main/java/org/zhangxiao/paladin2/core/mapper/xml',
+            'src/main/java/org/zhangxiao/paladin2/core/admin/mapper/xml',
     ]
 }

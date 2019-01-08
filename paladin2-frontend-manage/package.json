@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run start-local",
+    "start-local": "ng serve --proxy-config=proxy.local.conf.json",
+    "start-remote": "ng serve --proxy-config=proxy.remote.conf.json",
+    "build": "ng build --prod --aot --base-href /manage/ --build-optimizer",
+    "build-stats-json": "ng build --prod --stats-json --aot --base-href /manage/ --build-optimizer",
+    "dist-analyze": "webpack-bundle-analyzer dist/hdnr-boss/stats.json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

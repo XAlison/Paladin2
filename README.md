@@ -9,18 +9,18 @@
 
 本项目分离了前后端，共分为2个主工程
 
-- 后端工程：`paladin-backend` [说明文档](paladin2-backend/README.md)
+- 后端工程：`paladin2-backend` [说明文档](paladin2-backend/README.md)
 
-- 前端工程：`paladin-frontend-manage` [说明文档](paladin2-frontend-manage/README.md)
+- 前端工程：`paladin2-frontend-manage` [说明文档](paladin2-frontend-manage/README.md)
 
-## paladin-backend
+## paladin2-backend
 
 - 核心：Spring Boot `2.1.1`
 - 持久层：Mybatis Plus `3.0.7.1`
 - 权限：Shiro `1.4.0`
 - 接口文档：SpringFox Swagger2 `2.9.2`
 
-## paladin-frontend-manage
+## paladin2-frontend-manage
 
 - 核心：Angular `7.0.0`
 - UI：NG-ZORRO(Ant Design of Angular)

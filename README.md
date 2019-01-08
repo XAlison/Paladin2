@@ -11,7 +11,7 @@
 
 - 后端工程：`paladin-backend`
 
-- 前端工程：`paladin-frontend-admin`
+- 前端工程：`paladin-frontend-manage`
 
 ## paladin-backend
 
@@ -19,7 +19,7 @@
 - 持久层：Mybatis Plus `3.0.7.1`
 - 权限：Shiro `1.4.0`
 
-## paladin-frontend-admin
+## paladin-frontend-manage
 
 - 核心：Angular `7.0.0`
 - UI：NG-ZORRO(Ant Design of Angular)

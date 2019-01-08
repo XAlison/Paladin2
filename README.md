@@ -9,9 +9,9 @@
 
 本项目分离了前后端，共分为2个主工程
 
-- 后端工程：`paladin-backend`
+- 后端工程：`paladin-backend` [说明文档](paladin2-backend/README.md)
 
-- 前端工程：`paladin-frontend-manage`
+- 前端工程：`paladin-frontend-manage` [说明文档](paladin2-frontend-manage/README.md)
 
 ## paladin-backend
 

@@ -1,38 +1,39 @@
-@nav-folding-width: 150px;
-@nav-unfolding-width: 64px;
+@nav-width-unfolding: 150px;
+@nav-width-folding: 64px;
 @nav-background-color: #001529;
 @sub-nav-width: 130px;
 @header-background-color: white;
+@header-height: 50px;
 
 :host(.unfold) {
   .layout-header {
-    left: @nav-unfolding-width;
+    left: @nav-width-folding;
   }
 
   .layout-nav {
-    width: @nav-unfolding-width;
+    width: @nav-width-folding;
 
     ::ng-deep .brand {
-      width: @nav-unfolding-width;
+      width: @nav-width-folding;
     }
   }
 
   .layout-sub-nav {
-    left: @nav-unfolding-width;
+    left: @nav-width-folding;
   }
 
   .layout-container.hasSubNav {
-    padding-left: @nav-unfolding-width+@sub-nav-width;
+    padding-left: @nav-width-folding+@sub-nav-width;
   }
 
   .layout-container {
-    padding-left: @nav-unfolding-width;
+    padding-left: @nav-width-folding;
   }
 }
 
 .layout-nav {
   z-index: 3;
-  width: @nav-folding-width;
+  width: @nav-width-unfolding;
   background: @nav-background-color;
   top: 0;
   position: fixed;
@@ -43,11 +44,11 @@
 
   .brand {
     width: 150px;
-    height: 50px;
+    height: @header-height;
     overflow: hidden;
     color: #ffffff;
     font-size: 20px;
-    line-height: 50px;
+    line-height: @header-height;
     text-align: center;
     background-color: #002140;
     box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
@@ -56,6 +57,9 @@
     img {
       max-width: 130px;
       max-height: 40px;
+    }
+    &-text{
+      font-size: 26px;
     }
   }
 
@@ -94,7 +98,7 @@
 .layout-sub-nav {
   z-index: 1;
   position: fixed;
-  top: 50px;
+  top: @header-height;
   bottom: 0;
   left: 150px;
   width: 130px;
@@ -136,10 +140,10 @@
   transition: all .3s ease-out;
   background-color: @header-background-color;
   position: fixed;
-  left: @nav-folding-width;
+  left: @nav-width-unfolding;
   right: 0;
   top: 0;
-  height: 50px;
+  height: @header-height;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -149,11 +153,11 @@
   .fold-trigger {
     text-align: center;
     font-size: 20px;
-    line-height: 50px;
+    line-height: @header-height;
     color: rgba(0, 0, 0, 0.65);
     display: block;
-    height: 50px;
-    width: 50px;
+    height: @header-height;
+    width: @header-height;
 
     &:hover {
       background-color: #e6f7ff;
@@ -162,7 +166,7 @@
 
   .user {
     padding: 0 20px;
-    height: 50px;
+    height: @header-height;
     display: flex;
     align-items: center;
 
@@ -170,5 +174,18 @@
       background-color: #e6f7ff;
     }
   }
+
+}
+
+
+.layout-container {
+  padding-top: @header-height;
+  padding-left: @nav-width-unfolding;
+  transition: all .3s ease-out;
+  min-height: 100%;
+}
+
+.layout-container.hasSubNav {
+  padding-left: @nav-width-unfolding+@sub-nav-width;
 
 }

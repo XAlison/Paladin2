@@ -1,22 +1,23 @@
+<!--一级导航-->
 <aside class="layout-nav">
   <div class="brand">
-    <span *ngIf="folding">P</span>
-    <span *ngIf="!folding">Paladin</span>
+    <span class="brand-text" *ngIf="folding">P2</span>
+    <span class="brand-text" *ngIf="!folding">Paladin2</span>
   </div>
   <div class="module-list">
-    <a routerLink="{{rootNavNode.path}}" routerLinkActive="active"  *ngFor="let rootNavNode of rootNavs">
+    <a *ngFor="let rootNavNode of rootNavs" routerLink="{{rootNavNode.path}}" routerLinkActive="active">
       <i class="iconfont pld-{{rootNavNode.tag}}"></i>
-      <span class="title text-nowrap" [hidden]="folding">{{rootNavNode.title}}</span>
+      <span [hidden]="folding" class="title text-nowrap">{{rootNavNode.title}}</span>
     </a>
   </div>
 </aside>
-
-<nav class="layout-sub-nav">
+<!--二级导航-->
+<nav class="layout-sub-nav" *ngIf="subNavs?.length>0">
   <div class="item" *ngFor="let item of subNavs">
     <a [routerLink]="item.path" routerLinkActive="active">{{item.title}}</a>
   </div>
 </nav>
-
+<!--头部导航-->
 <header class="layout-header">
   <a class="fold-trigger" (click)="toggle()">
     <i nz-icon type="menu-fold" theme="outline" *ngIf="!folding"></i>
@@ -41,7 +42,7 @@
     </ul>
   </nz-dropdown>
 </header>
-
-<section>
-  页面
+<!--主页面-->
+<section class="layout-container" [class.hasSubNav]="subNavs?.length>0">
+  <router-outlet></router-outlet>
 </section>

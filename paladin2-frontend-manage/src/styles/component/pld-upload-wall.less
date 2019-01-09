@@ -1,0 +1,65 @@
+.upload-wall {
+  &-item {
+    position: relative;
+    border-radius: 10px;
+    background-color: #eff7ff;
+    border: 1px dashed #c0ccda;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 110px;
+    height: 110px;
+    line-height: 110px;
+    vertical-align: top;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    float: left;
+    &.selected {
+      border: 4px solid #20a0ff;
+    }
+    &:hover {
+      border-color: #20a0ff;
+      .action {
+        opacity: 1;
+        transition: opacity 1s;
+      }
+    }
+    &.add {
+      font-size: 28px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .img {
+      width: 100%;
+      height: 100%;
+      background: no-repeat center center;
+      background-size: contain;
+    }
+    .action {
+      top: 0;
+      width: 110px;
+      height: 110px;
+      position: absolute;
+      background-color: rgba(0,0,0,.5);
+      display: block;
+      text-align: center;
+      vertical-align: center;
+      color: #ffffff;
+      opacity: 0;
+      transition: opacity 0.5s;
+      i {
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .action-split {
+        margin: 0 10px;
+      }
+    }
+  }
+  .previewer {
+    ::ng-deep img {
+      width: 100%;
+    }
+  }
+
+}

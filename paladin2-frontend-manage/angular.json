@@ -51,6 +51,7 @@
               }
             ],
             "styles": [
+              "src/iconfont/iconfont.css",
               "src/styles.less"
             ],
             "scripts": []

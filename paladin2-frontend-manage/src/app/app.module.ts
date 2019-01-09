@@ -10,12 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { RootModule } from './modules/root/root.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +26,7 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     RootModule,
+    SharedModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

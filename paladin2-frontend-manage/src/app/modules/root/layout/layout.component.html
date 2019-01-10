@@ -30,14 +30,12 @@
       管理员昵称
     </a>
     <ul nz-menu nzSelectable>
-      <!--<li nz-menu-item [nzDisabled]="true"><i class="anticon anticon-user mr-sm"></i>个人中心</li>
-      <li nz-menu-item [nzDisabled]="true"><i class="anticon anticon-setting mr-sm"></i>设置</li>-->
       <li nz-menu-item (click)="changePassword()">
-        <i class="anticon anticon-setting mr-sm"></i> 修改密码
+        <i nz-icon type="key" theme="outline"></i> 修改密码
       </li>
       <li nz-menu-divider></li>
       <li nz-menu-item (click)="logout()">
-        <i class="anticon anticon-logout"></i> 退出登录
+        <i nz-icon type="logout" theme="outline"></i> 退出登录
       </li>
     </ul>
   </nz-dropdown>

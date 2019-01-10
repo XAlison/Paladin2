@@ -1,4 +1,4 @@
-package org.zhangxiao.paladin2.api.rest.manage;
+package org.zhangxiao.paladin2.core.admin.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -8,7 +8,10 @@ import org.zhangxiao.paladin2.common.exception.BizException;
 import org.zhangxiao.paladin2.common.util.DTOUtils;
 import org.zhangxiao.paladin2.core.admin.bean.AdminDTO;
 import org.zhangxiao.paladin2.core.admin.bean.AdminRowVO;
+import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
+import org.zhangxiao.paladin2.core.admin.service.ISysPermissionResourceService;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysAdminService;
+import org.zhangxiao.paladin2.core.admin.service.impl.SysPermissionResourceService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,13 @@ public class SysAdminCtrl {
 
     @Autowired
     private SysAdminService sysAdminService;
+    @Autowired
+    private SysPermissionResourceService sysPermissionResourceService;
+
+    @GetMapping("/manage/sys/admin/ui_permission")
+    public UiPermissionVO uiPermission() {
+        return sysPermissionResourceService.getPermittedUIPermission();
+    }
 
     @GetMapping("/manage/sys/admin/list")
     public List<AdminRowVO> list() {

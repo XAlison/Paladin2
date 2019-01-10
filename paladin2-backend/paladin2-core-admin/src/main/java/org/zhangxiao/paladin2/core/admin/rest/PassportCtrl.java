@@ -1,4 +1,4 @@
-package org.zhangxiao.paladin2.api.rest.manage;
+package org.zhangxiao.paladin2.core.admin.rest;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.shiro.SecurityUtils;

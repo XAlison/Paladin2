@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LoginComponent, NotFoundComponent, HomeComponent, LayoutComponent],
@@ -15,6 +16,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     SharedModule,
     RouterModule,
     NgZorroAntdModule,
+    ReactiveFormsModule,
   ]
 })
 export class RootModule { }

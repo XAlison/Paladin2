@@ -1,5 +1,7 @@
 package org.zhangxiao.paladin2.core.admin.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
@@ -15,5 +17,9 @@ import java.util.List;
 @Component
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
-    List<String> getAdminPermission(Long adminId);
+    List<String> getAdminPermission(@Param("adminId") Long adminId);
+
+    List<PermissionVO> getVOListByParent(@Param("parent") String parent);
+
+    List<String> getAllPermission();
 }

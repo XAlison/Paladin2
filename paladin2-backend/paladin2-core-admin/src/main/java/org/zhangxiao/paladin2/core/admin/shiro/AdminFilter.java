@@ -86,7 +86,7 @@ public class AdminFilter extends AccessControlFilter {
             if (log.isDebugEnabled()) {
                 log.debug("当前访问URI:" + requestURI);
             }
-            if (requestURI.startsWith("/backend/common")) {
+            if (requestURI.equals("/manage/sys/admin/ui_permission")) {
                 // 所有后台用户对以上路径下的接口，均放行
                 isAuthorization = true;
             } else {

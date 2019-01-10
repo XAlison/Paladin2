@@ -26,7 +26,7 @@ public class Swagger2SpringBoot {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.zhangxiao.paladin2.api.rest.manage"))
+                .apis(RequestHandlerSelectors.basePackage("org.zhangxiao.paladin2.core.admin.rest"))
                 .paths(PathSelectors.any())
                 .build().enable(swagger2Properties.getCanVisit());
     }

@@ -1,5 +1,6 @@
 package org.zhangxiao.paladin2.core.admin.service;
 
+import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -28,11 +29,14 @@ public interface ISysPermissionResourceService extends IService<SysPermissionRes
      * 获取所有接口权限列表缓存
      * @return 权限资源列表
      */
-    List<SysPermissionResource> getApiPermissionListCache();
+    List<SysPermissionResource> getApiResourcesCache();
 
     /**
      * 清除所有接口权限列表缓存
      * @return 权限资源列表
      */
-    void cleanApiPermissionListCache();
+    void cleanApiResourcesCache();
+
+
+    UiPermissionVO getPermittedUIPermission();
 }

@@ -19,5 +19,11 @@
         right join sys_admin_role on sys_admin_role.role_id = sys_role_permission.role_id
         WHERE sys_admin_role.admin_id=#{adminId}
     </select>
+    <select id="getVOListByParent" resultType="org.zhangxiao.paladin2.core.admin.bean.PermissionVO">
+        select * from sys_permission where parent = #{parent} order by sort
+    </select>
+    <select id="getAllPermission" resultType="java.lang.String">
+        select permission from sys_permission
+    </select>
 
 </mapper>

@@ -11,6 +11,8 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { RootModule } from './modules/root/root.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { services } from './service';
+import { interceptors } from './core/interceptor';
 
 registerLocaleData(zh);
 
@@ -28,7 +30,11 @@ registerLocaleData(zh);
     RootModule,
     SharedModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [
+    { provide: NZ_I18N, useValue: zh_CN },
+    ...services,
+    ...interceptors,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

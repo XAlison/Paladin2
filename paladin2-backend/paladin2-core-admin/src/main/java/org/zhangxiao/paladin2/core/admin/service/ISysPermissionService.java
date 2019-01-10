@@ -1,7 +1,8 @@
 package org.zhangxiao.paladin2.core.admin.service;
 
-import org.zhangxiao.paladin2.core.admin.entity.SysPermission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
+import org.zhangxiao.paladin2.core.admin.entity.SysPermission;
 
 import java.util.List;
 
@@ -16,4 +17,10 @@ import java.util.List;
 public interface ISysPermissionService extends IService<SysPermission> {
 
     List<String> getAdminPermission(Long adminId);
+
+    List<PermissionVO> getVOListByParent(String permission);
+
+    List<String> getAllPermission();
+
+    void cleanAllPermissionsCache();
 }

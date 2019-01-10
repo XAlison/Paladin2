@@ -5,6 +5,7 @@ import { NotFoundComponent } from './modules/root/not-found/not-found.component'
 import { HomeComponent } from './modules/root/home/home.component';
 import { LayoutComponent } from './modules/root/layout/layout.component';
 import { PageGuard } from './core/gurad/page.guard';
+import { ModuleGuard } from './core/gurad/module.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, canActivate: [PageGuard] },
+      { path: 'config', loadChildren: './modules/config/config.module#ConfigModule', canLoad: [ModuleGuard], canActivate: [ModuleGuard] },
     ]
   },
   { path: 'login', component: LoginComponent },

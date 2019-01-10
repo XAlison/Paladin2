@@ -1,0 +1,94 @@
+<div class="pld-page">
+  <div class="mb-md">
+    <button (click)="showCreate()" nz-button nzType="primary"><i nz-icon type="plus"></i>创建管理员</button>
+  </div>
+  <div class="hd-card-table">
+    <nz-table #basicTable
+              [nzData]="adminList"
+              [nzFrontPagination]="false"
+              [nzLoading]="listLoading"
+              [nzShowPagination]="false">
+      <thead>
+      <tr>
+        <th width="60">ID</th>
+        <th width="100">账号</th>
+        <th width="200">昵称</th>
+        <th width="200">角色</th>
+        <th width="100">创建时间</th>
+        <th width="100">更新时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td class="text-nowrap">{{item.id}}</td>
+        <td class="text-nowrap">{{item.account}}</td>
+        <td class="text-nowrap">{{item.nickName}}</td>
+        <td class="text-nowrap">{{item.roles}}</td>
+        <td class="text-nowrap">{{item.createTime}}</td>
+        <td class="text-nowrap">{{item.updateTime}}</td>
+        <td class="text-nowrap">
+          <button (click)="shopUpdate(item.id)" nz-button nzType="primary"><i nz-icon type="edit"></i></button>
+          <button (nzOnConfirm)="deleteAdmin(item.id)" class="ml-sm" nz-button
+                  nz-popconfirm nzPlacement="left" nzTitle="确认删除?" nzType="danger"
+          ><i nz-icon type="delete"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal *ngIf="adminModal.form!=null" [(nzVisible)]="adminModal.visible" [nzTitle]="adminModal.title"
+          (nzOnCancel)="adminModal.visible = false"
+          (nzOnOk)="saveAdmin()" [nzOkLoading]="adminModal.loading">
+  <form nz-form [formGroup]="adminModal.form">
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true" [nzSpan]="4" nzFor="account">账号</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzHasFeedback>
+        <input type="text" nz-input formControlName="account" placeholder="请输入管理员账号"/>
+        <nz-form-explain *ngIf="adminModal.form.get('account').dirty && adminModal.form.get('account').errors">
+          <ng-container *ngIf="adminModal.form.get('account').hasError('required')">
+            账号不能为空
+          </ng-container>
+          <ng-container
+            *ngIf="adminModal.form.get('account').hasError('minlength') || adminModal.form.get('account').hasError('maxlength')">
+            账号长度需在4-20位之间
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzRequired]="adminModal.passwordRequire" [nzSpan]="4" nzFor="password">密码</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzHasFeedback>
+        <input type="password" nz-input formControlName="password" [placeholder]="adminModal.passwordPlaceholder"/>
+        <nz-form-explain *ngIf="adminModal.form.get('password').dirty && adminModal.form.get('password').errors">
+          <ng-container *ngIf="adminModal.form.get('password').hasError('required')">
+            密码不能为空
+          </ng-container>
+          <ng-container
+            *ngIf="adminModal.form.get('password').hasError('minlength') || adminModal.form.get('password').hasError('maxlength')">
+            密码长度需在6-20位之间
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true" [nzSpan]="4" nzFor="nickName">昵称</nz-form-label>
+      <nz-form-control [nzSpan]="20" nzHasFeedback>
+        <input type="text" nz-input formControlName="nickName" placeholder="建议填写真实姓名"/>
+        <nz-form-explain *ngIf="adminModal.form.get('nickName').dirty && adminModal.form.get('nickName').errors">
+          <ng-container *ngIf="adminModal.form.get('nickName').hasError('required')">
+            昵称不能为空
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzFor="roles">角色</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <nz-checkbox-group formControlName="roles"></nz-checkbox-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

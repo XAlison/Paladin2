@@ -27,7 +27,7 @@ export class ModuleGuard implements CanActivate, CanLoad {
       switchMap(permissions => {
         for (const moduleNav of permissions.uiNavs) {
           if (moduleNav.path === state.url && moduleNav.children.length > 0) {
-            this.router.navigate([moduleNav.children[0].path], {replaceUrl: true});
+            this.router.navigate([moduleNav.children[0].path], { replaceUrl: true });
           }
         }
         return of(true);

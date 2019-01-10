@@ -1,0 +1,35 @@
+<div class="detail">
+  <!--这里放logo？貌似没啥用-->
+  <div class="logo" *ngIf="logo">
+    <ng-template [ngTemplateOutlet]="logo"></ng-template>
+  </div>
+  <div class="main">
+    <div class="row">
+      <!--页面左侧标题-->
+      <h1 *ngIf="title" class="header-title">
+        <ng-container>{{title}}</ng-container>
+      </h1>
+      <!--页面中部标题-->
+      <div *ngIf="titleArea" class="header-title">
+        <ng-template [ngTemplateOutlet]="titleArea"></ng-template>
+      </div>
+      <!--这里放操作按钮-->
+      <div *ngIf="action" class="header-action">
+        <ng-template [ngTemplateOutlet]="action"></ng-template>
+      </div>
+    </div>
+    <div class="row">
+      <!--这里放主要内容（左边）-->
+      <div *ngIf="content" class="header-content">
+        <ng-content></ng-content>
+        <ng-template [ngTemplateOutlet]="content"></ng-template>
+      </div>
+      <!--这里放内容扩展（右边）-->
+      <div *ngIf="extraContent" class="header-extraContent">
+        <ng-template [ngTemplateOutlet]="extraContent"></ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+<!--这里放选显卡-->
+<ng-template [ngTemplateOutlet]="tabs"></ng-template>

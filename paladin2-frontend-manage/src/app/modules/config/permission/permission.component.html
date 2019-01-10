@@ -1,0 +1,12 @@
+<pld-page-header title="权限配置">
+  <ng-template #tabs>
+    <nz-tabset [(nzSelectedIndex)]="tabsIdx" (nzSelectedIndexChange)="tabsIdx">
+      <nz-tab nzTitle="管理员"></nz-tab>
+      <nz-tab nzTitle="角色"></nz-tab>
+      <nz-tab nzTitle="资源"></nz-tab>
+    </nz-tabset>
+  </ng-template>
+</pld-page-header>
+<pld-permission-admin *ngIf="tabsIdx===0"></pld-permission-admin>
+
+

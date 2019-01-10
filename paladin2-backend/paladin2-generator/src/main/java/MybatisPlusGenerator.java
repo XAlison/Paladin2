@@ -24,14 +24,14 @@ public class MybatisPlusGenerator {
     // 指定需要生成的表名（没有指定，则全部生成）
     private static String[] tables = new String[]{
            "sys_admin",
-           "sys_admin_role",
-           "sys_permission",
-           "sys_permission_resource",
-           "sys_role",
-           "sys_role_permission",
+           // "sys_admin_role",
+           // "sys_permission",
+           // "sys_permission_resource",
+           // "sys_role",
+           // "sys_role_permission",
     };
     // 指定生成的目录（以整个工程的根目录为准）
-    private static final String OUT_PATH = "/paladin2-core/src/main/java";
+    private static final String OUT_PATH = "/paladin2-core-admin/src/main/java";
     // 指定生成的目录（以整个工程的根目录为准）
     private static final String PACKAGE_NAME = "org.zhangxiao.paladin2.core.admin";
 

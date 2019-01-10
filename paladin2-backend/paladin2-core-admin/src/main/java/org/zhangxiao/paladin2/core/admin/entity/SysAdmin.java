@@ -106,7 +106,7 @@ public class SysAdmin extends Model<SysAdmin> {
      * 状态
      */
     @TableField("status")
-    private Boolean status;
+    private Integer status;
 
 
     @Override

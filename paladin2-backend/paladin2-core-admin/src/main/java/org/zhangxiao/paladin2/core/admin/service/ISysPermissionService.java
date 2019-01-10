@@ -3,6 +3,8 @@ package org.zhangxiao.paladin2.core.admin.service;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermission;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 系统-权限表 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysPermissionService extends IService<SysPermission> {
 
+    List<String> getAdminPermission(Long adminId);
 }

@@ -5,12 +5,15 @@ debug: false
 
 logging:
   level:
-    org.zhangxiao.paladin2.api: debug
+    org.zhangxiao.paladin2: debug
     org.springframework.web: debug
 
 paladin2:
-#  admin-salt: 默认值（salt_2019-1-8 09:42:40_paladin2）
-  swagger-enable: true # 默认值（false）
+  swagger2:
+    can-visit: true # 默认为false
+#  admin:
+#    jwt-secret: 安全起见，建议设置
+#    password-salt: 安全起见，建议设置
   
 spring:
   jackson:

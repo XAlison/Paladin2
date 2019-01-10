@@ -10,9 +10,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     implementation lib_mybatis_plus
     implementation lib_mybatis_plus_starter
-//	Shiro
-//    compile "org.apache.shiro:shiro-spring-boot-starter:1.4.0"
+    // 权限
+    compile "com.auth0:java-jwt:3.2.0"
+    compile "org.apache.shiro:shiro-spring-boot-starter:1.4.0"
     implementation project(":paladin2-common")
+    // 配置映射到类需要用到
+    // 文档：https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
 }
 sourceSets {
     main.resources.srcDirs = [

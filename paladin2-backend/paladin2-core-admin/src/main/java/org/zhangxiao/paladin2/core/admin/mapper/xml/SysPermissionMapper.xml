@@ -14,5 +14,10 @@
     <sql id="Base_Column_List">
         permission, title, parent, sort
     </sql>
+    <select id="getAdminPermission" resultType="java.lang.String">
+        select distinct permission from sys_role_permission
+        right join sys_admin_role on sys_admin_role.role_id = sys_role_permission.role_id
+        WHERE sys_admin_role.admin_id=#{adminId}
+    </select>
 
 </mapper>

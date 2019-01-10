@@ -7,7 +7,7 @@ import lombok.Getter;
  */
 
 @Getter
-public enum CommonBizError implements IBizError {
+public enum BaseBizError implements IBizError {
     //通用
     DTO_INVALID                         (100000, "参数错误"),
     ;
@@ -15,7 +15,7 @@ public enum CommonBizError implements IBizError {
     private int code;
     private String message;
 
-    CommonBizError(int code, String msg) {
+    BaseBizError(int code, String msg) {
         this.code = code;
         this.message = msg;
     }

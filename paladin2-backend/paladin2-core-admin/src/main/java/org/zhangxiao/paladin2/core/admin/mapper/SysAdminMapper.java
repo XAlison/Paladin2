@@ -20,6 +20,5 @@ public interface SysAdminMapper extends BaseMapper<SysAdmin> {
 
     List<AdminRowVO> getRowVOList();
 
-
     AdminRowVO getRowVO(@Param("adminId") Long adminId);
 }

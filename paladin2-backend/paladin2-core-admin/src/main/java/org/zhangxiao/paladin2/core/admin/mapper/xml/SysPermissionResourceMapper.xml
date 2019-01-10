@@ -14,5 +14,8 @@
     <sql id="Base_Column_List">
         id, permission, type_id, data
     </sql>
+    <select id="getListByTypeId" resultType="org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource">
+        select * from sys_permission_resource where type_id = #{typeId}
+    </select>
 
 </mapper>

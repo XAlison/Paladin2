@@ -3,14 +3,14 @@ server:
 
 debug: false
 
-logging:
-  level:
-    org.zhangxiao.paladin2: debug
-    org.springframework.web: debug
+#logging:
+#  level:
+#    org.zhangxiao.paladin2: debug
+#    org.springframework.web: debug
 
-paladin2:
-  swagger2:
-    can-visit: true # 默认为false
+#paladin2:
+#  swagger2:
+#    can-visit: true # 默认为false
 #  admin:
 #    jwt-secret: 安全起见，建议设置
 #    password-salt: 安全起见，建议设置

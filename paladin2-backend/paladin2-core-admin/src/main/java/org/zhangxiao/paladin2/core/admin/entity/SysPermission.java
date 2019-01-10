@@ -33,6 +33,7 @@ public class SysPermission extends Model<SysPermission> {
     public static final String FN_title = "title";
     public static final String FN_parent = "parent";
     public static final String FN_sort = "sort";
+    public static final String FN_navPath = "nav_path";
 
     /**
      * 权限表达式
@@ -57,6 +58,12 @@ public class SysPermission extends Model<SysPermission> {
      */
     @TableField("sort")
     private Integer sort;
+
+    /**
+     * 导航路径
+     */
+    @TableField("nav_path")
+    private String navPath;
 
 
     @Override

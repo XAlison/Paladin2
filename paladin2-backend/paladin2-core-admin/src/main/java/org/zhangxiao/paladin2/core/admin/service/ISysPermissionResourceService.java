@@ -1,5 +1,6 @@
 package org.zhangxiao.paladin2.core.admin.service;
 
+import org.apache.shiro.subject.Subject;
 import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -23,20 +24,20 @@ public interface ISysPermissionResourceService extends IService<SysPermissionRes
      */
     String[] getApiPermission(String requestURI);
 
-    // TODO 缓存需要能支持扩展，如Redis
-
     /**
-     * 获取所有接口权限列表缓存
+     * 获取获取某个类型的资源列表
+     * TODO 缓存需要能支持扩展，如Redis
      * @return 权限资源列表
      */
-    List<SysPermissionResource> getApiResourcesCache();
+    List<SysPermissionResource> getResources(Integer typeId);
 
     /**
-     * 清除所有接口权限列表缓存
-     * @return 权限资源列表
+     * 清除所有接口权限列表缓存 TODO 有变更的时候要清理下
      */
-    void cleanApiResourcesCache();
+    void cleanResourcesCache();
 
-
-    UiPermissionVO getPermittedUIPermission();
+    /**
+     * 根据shiro的subject，来获取对应账号的前端权限VO
+     */
+    UiPermissionVO getPermittedUIPermission(Subject subject);
 }

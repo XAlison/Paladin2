@@ -1,7 +1,6 @@
 package org.zhangxiao.paladin2.core.admin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.zhangxiao.paladin2.core.admin.AdminConst;
+import org.zhangxiao.paladin2.core.admin.bean.NavNodeVO;
+import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
 import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
 import org.zhangxiao.paladin2.core.admin.mapper.SysPermissionResourceMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysPermissionResourceService;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -32,14 +31,14 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
     private static final Logger log = LoggerFactory.getLogger(SysPermissionResourceService.class);
     @Autowired
     private SysPermissionService sysPermissionService;
-    private List<SysPermissionResource> apiResourcesCache = null;
+    private Hashtable<Integer, List<SysPermissionResource>> resourcesCache = new Hashtable<>();
 
     @Override
     public String[] getApiPermission(String requestURI) {
-        List<SysPermissionResource> allPermission = getApiResourcesCache();
+        List<SysPermissionResource> allApiResources = getResources(AdminConst.PERMISSION_RESOURCE_TYPE_API);
         List<String> goodsPermission = new ArrayList<>();
         AntPathMatcher pathMatcher = new AntPathMatcher();
-        for (SysPermissionResource resource : allPermission) {
+        for (SysPermissionResource resource : allApiResources) {
             if (pathMatcher.match(resource.getData(), requestURI)) {
                 if (log.isDebugEnabled()) {
                     log.debug(resource.getData() + "<----匹配---->" + requestURI);
@@ -51,24 +50,27 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
     }
 
     @Override
-    public List<SysPermissionResource> getApiResourcesCache() {
-        if (apiResourcesCache == null) {
-            apiResourcesCache = baseMapper.getListByTypeId(AdminConst.PERMISSION_RESOURCE_TYPE_API);
+    public List<SysPermissionResource> getResources(Integer typeId) {
+        List<SysPermissionResource> listInCache = resourcesCache.getOrDefault(typeId, null);
+        if (listInCache == null) {
+            listInCache = baseMapper.getListByTypeId(typeId);
+            resourcesCache.put(typeId, listInCache);
         }
-        return apiResourcesCache;
+        return listInCache;
     }
 
     @Override
-    public void cleanApiResourcesCache() {
-        apiResourcesCache = null;
+    public void cleanResourcesCache() {
+        resourcesCache = new Hashtable<>();
     }
 
     @Override
-    public UiPermissionVO getPermittedUIPermission() {
+    public UiPermissionVO getPermittedUIPermission(Subject subject) {
         UiPermissionVO vo = new UiPermissionVO();
-        vo.setUiPaths(getUiPermission(AdminConst.PERMISSION_RESOURCE_TYPE_UI_PATH));
-        vo.setUiElements(getUiPermission(AdminConst.PERMISSION_RESOURCE_TYPE_UI_ELEMENT));
-        // vo.setUiNavs(sysPermissionService.getPermittedNavs());
+        vo.setUiPaths(getUiPermission(subject, AdminConst.PERMISSION_RESOURCE_TYPE_UI_PATH));
+        // vo.setUiElements(getUiPermission(subject, AdminConst.PERMISSION_RESOURCE_TYPE_UI_ELEMENT)); TODO 前端UI元素权限
+        vo.setUiElements(new HashSet<>());
+        vo.setUiNavs(getPermittedNavs(subject));
         return vo;
     }
 
@@ -86,11 +88,9 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
      * 如果直接判断，是没有该路径权限的
      * 但是实际上的需求是，只要有任何子权限，即可放行
      */
-    private HashSet<String> getUiPermission(int permissionResourceTypeUiPath) {
-        Subject subject = SecurityUtils.getSubject();
+    private HashSet<String> getUiPermission(Subject subject, int permissionResourceTypeUiPath) {
         // 获取所有前端路径级对应的权限
-        List<SysPermissionResource> uiPathResources = baseMapper.getListByTypeId(permissionResourceTypeUiPath);
-        List<String> allPermission = sysPermissionService.getAllPermission();
+        List<SysPermissionResource> uiPathResources = getResources(permissionResourceTypeUiPath);
         HashSet<String> uiPaths = new HashSet<>();
         uiPathResources.forEach(item -> {
             // 如果这个路径，已经在允许访问的路径集合中，那就跳过
@@ -98,25 +98,38 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
                 return;
             }
             // 如果是超级管理员，或者 验证有权限，就添加到允许访问的路径集合中
-            if ("1".equals(subject.getPrincipal().toString()) || checkPermission(subject, allPermission, item.getPermission())) {
+            if ("1".equals(subject.getPrincipal().toString()) || sysPermissionService.hasAnyPermitted(subject, item.getPermission())) {
                 uiPaths.add(item.getData());
             }
         });
         return uiPaths;
     }
 
-    /**
-     * 由于前端路径权限判断与shiro有所区别，所以：
-     * 先，判断是否有该权限授权
-     * 再，遍历子权限，判断是否有子权限授权
-     */
-    private boolean checkPermission(Subject subject, List<String> allPermission, String permission) {
-        for (String item : allPermission) {
-            if (item.startsWith(permission) && subject.isPermitted(item)) {
-                return true;
+    private List<NavNodeVO> getPermittedNavs(Subject subject) {
+        List<PermissionVO> fullNavs = sysPermissionService.getPermissionTree();
+        List<NavNodeVO> finalNavs = new ArrayList<>();
+        for (PermissionVO level1 : fullNavs) {
+            if ("1".equals(subject.getPrincipal().toString()) || sysPermissionService.hasAnyPermitted(subject, level1.getPermission())) {
+                NavNodeVO level1Node = convertToNavNodeVO(level1);
+                for (PermissionVO level2 : level1.getChildren()) {
+                    if ("1".equals(subject.getPrincipal().toString()) || sysPermissionService.hasAnyPermitted(subject, level2.getPermission())) {
+                        NavNodeVO level2Node = convertToNavNodeVO(level2);
+                        level1Node.getChildren().add(level2Node);
+                    }
+                }
+                finalNavs.add(level1Node);
             }
         }
-        return false;
+        return finalNavs;
+    }
+
+    private NavNodeVO convertToNavNodeVO(PermissionVO permissionVO) {
+        NavNodeVO nodeVO = new NavNodeVO();
+        String tag = sysPermissionService.getLastTag(permissionVO.getPermission());
+        nodeVO.setTag(tag);
+        nodeVO.setPath(permissionVO.getNavPath());
+        nodeVO.setTitle(permissionVO.getTitle());
+        return nodeVO;
     }
 
 }

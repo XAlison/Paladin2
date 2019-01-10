@@ -12,7 +12,7 @@ public class PermissionVO {
 
     private String permission;
     private String title;
-    private String path;
+    private String navPath;
     private Integer sort;
     private List<PermissionVO> children = new ArrayList<>();
 }

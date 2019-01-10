@@ -1,5 +1,7 @@
 package org.zhangxiao.paladin2.core.admin.rest;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -9,7 +11,6 @@ import org.zhangxiao.paladin2.common.util.DTOUtils;
 import org.zhangxiao.paladin2.core.admin.bean.AdminDTO;
 import org.zhangxiao.paladin2.core.admin.bean.AdminRowVO;
 import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
-import org.zhangxiao.paladin2.core.admin.service.ISysPermissionResourceService;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysAdminService;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysPermissionResourceService;
 
@@ -29,7 +30,8 @@ public class SysAdminCtrl {
 
     @GetMapping("/manage/sys/admin/ui_permission")
     public UiPermissionVO uiPermission() {
-        return sysPermissionResourceService.getPermittedUIPermission();
+        Subject subject = SecurityUtils.getSubject();
+        return sysPermissionResourceService.getPermittedUIPermission(subject);
     }
 
     @GetMapping("/manage/sys/admin/list")

@@ -8,11 +8,12 @@
         <result column="title" property="title" />
         <result column="parent" property="parent" />
         <result column="sort" property="sort" />
+        <result column="nav_path" property="navPath" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        permission, title, parent, sort
+        permission, title, parent, sort, nav_path
     </sql>
     <select id="getAdminPermission" resultType="java.lang.String">
         select distinct permission from sys_role_permission

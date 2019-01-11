@@ -29,9 +29,14 @@ public interface ISysAdminService extends IService<SysAdmin> {
     List<AdminRowVO> getList();
 
     /**
-     * 保存管理员（adminId==null->创建、adminId!=null->更新）
+     * 创建管理员
      */
-    void saveOne(Long adminId, AdminDTO adminDTO) throws BizException;
+    void createOne(AdminDTO adminDTO) throws BizException;
+
+    /**
+     * 更新管理员
+     */
+    void updateOne(Long adminId, AdminDTO adminDTO) throws BizException;
 
     /**
      * 删除管理员

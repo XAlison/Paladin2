@@ -55,43 +55,41 @@ public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> imple
     }
 
     @Override
-    public void saveOne(Long adminId, AdminDTO adminDTO) throws BizException {
-        SysAdmin sysAdmin;
-        if (adminId != null) {
-            // 更新逻辑
-            sysAdmin = baseMapper.selectById(adminId);
-            if (sysAdmin == null) {
-                throw new BizException(AdminBizError.ADMIN_NOT_EXIST);
-            }
-            sysAdmin.setNickName(adminDTO.getNickName());
-            if (!StrUtils.isEmpty(adminDTO.getPassword())) {
-                sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
-            }
-            sysAdmin.setNickName(adminDTO.getNickName());
-            sysAdmin.setUpdateTime(LocalDateTime.now());
-            sysAdmin.updateById();
-        } else {
-            // 创建逻辑
-            sysAdmin = new SysAdmin();
-            if (baseMapper.countByAccount(adminDTO.getAccount()) > 0) {
-                throw new BizException(AdminBizError.ADMIN_USERNAME_EXIST);
-            }
-            if (StrUtils.isEmpty(adminDTO.getPassword())) {
-                throw new BizException(AdminBizError.ADMIN_PASSWORD_REQUIRED);
-            }
-            sysAdmin.setAccount(adminDTO.getAccount());
-            sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
-            sysAdmin.setCreateTime(LocalDateTime.now());
-            sysAdmin.setNickName(adminDTO.getNickName());
-            sysAdmin.insert();
+    public void createOne(AdminDTO adminDTO) throws BizException {
+        SysAdmin sysAdmin = new SysAdmin();
+        if (baseMapper.countByAccount(adminDTO.getAccount()) > 0) {
+            throw new BizException(AdminBizError.ADMIN_USERNAME_EXIST);
         }
+        if (StrUtils.isEmpty(adminDTO.getPassword())) {
+            throw new BizException(AdminBizError.ADMIN_PASSWORD_REQUIRED);
+        }
+        sysAdmin.setAccount(adminDTO.getAccount());
+        sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
+        sysAdmin.setCreateTime(LocalDateTime.now());
+        sysAdmin.setNickName(adminDTO.getNickName());
+        sysAdmin.insert();
+        sysAdminRoleService.saveRelation(sysAdmin.getId(), adminDTO.getRoleIdList());
+    }
+
+    @Override
+    public void updateOne(Long adminId, AdminDTO adminDTO) throws BizException {
+        SysAdmin sysAdmin = Optional.ofNullable(adminId)
+                .map(id -> baseMapper.selectById(adminId))
+                .orElseThrow(new BizException(AdminBizError.ADMIN_NOT_EXIST));
+        sysAdmin.setNickName(adminDTO.getNickName());
+        if (!StrUtils.isEmpty(adminDTO.getPassword())) {
+            sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
+        }
+        sysAdmin.setNickName(adminDTO.getNickName());
+        sysAdmin.setUpdateTime(LocalDateTime.now());
+        sysAdmin.updateById();
         sysAdminRoleService.saveRelation(sysAdmin.getId(), adminDTO.getRoleIdList());
     }
 
     @Override
     public void deleteOne(Long adminId) throws BizException {
         SysAdmin admin = Optional.ofNullable(baseMapper.selectById(adminId))
-                .orElseThrow(() -> new BizException(AdminBizError.ADMIN_NOT_EXIST));
+                .orElseThrow(new BizException(AdminBizError.ADMIN_NOT_EXIST));
         if (admin.getId().equals(1L)) {
             throw new BizException(AdminBizError.ADMIN_CANNOT_DELETE);
         }

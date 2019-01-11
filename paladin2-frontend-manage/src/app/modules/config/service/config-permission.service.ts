@@ -6,9 +6,9 @@ import {switchMap, tap} from 'rxjs/operators';
 
 const api = {
   adminList: () => `/manage/sys/admin/list`,
-  adminDel: (adminId) => `/manage/sys/admin/del?adminId=${adminId}`,
-  adminSet: (adminId) => adminId ? `/manage/sys/admin/set?adminId=${adminId}` : `/manage/sys/admin/set`,
-  adminGet: (adminId) => `/manage/sys/admin/get?adminId=${adminId}`,
+  adminDel: (adminId) => `/manage/sys/admin/delete/${adminId}`,
+  adminSave: (adminId) => adminId ? `/manage/sys/admin/save/${adminId}` : `/manage/sys/admin/save`,
+  adminGet: (adminId) => `/manage/sys/admin/get/${adminId}`,
   roleList: () => `/manage/sys/role/list`,
   roleSet: (roleId) => roleId ? `/manage/sys/role/save?roleId=${roleId}` : `/manage/sys/role/save`,
   roleDel: (roleId) => `/manage/sys/role/delete/${roleId}`,
@@ -49,7 +49,7 @@ export class ConfigPermissionService {
     nickName: string,
     roleIdList: Array<number>,
   }) {
-    return this.httpClient.post(api.adminSet(adminId), data);
+    return this.httpClient.post(api.adminSave(adminId), data);
   }
 
   getAdmin(adminId) {

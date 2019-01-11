@@ -1,4 +1,4 @@
-package org.zhangxiao.paladin2.core.admin.rest;
+package org.zhangxiao.paladin2.core.admin.rest.manage;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -39,10 +39,15 @@ public class SysAdminCtrl {
         return sysAdminService.getList();
     }
 
+    @PostMapping("/manage/sys/admin/save")
+    public void setAdmin(@RequestBody @Validated AdminDTO adminDTO, BindingResult bindingResult) throws BizException {
+        DTOUtils.checkThrow(bindingResult);
+        sysAdminService.createOne(adminDTO);
+    }
     @PostMapping("/manage/sys/admin/save/{adminId}")
     public void setAdmin(@PathVariable(required = false) Long adminId, @RequestBody @Validated AdminDTO adminDTO, BindingResult bindingResult) throws BizException {
         DTOUtils.checkThrow(bindingResult);
-        sysAdminService.saveOne(adminId, adminDTO);
+        sysAdminService.updateOne(adminId, adminDTO);
     }
 
     @GetMapping("/manage/sys/admin/delete/{adminId}")

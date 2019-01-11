@@ -58,4 +58,8 @@ class AdminModal {
     this.visible = false;
   }
 
+  saveError() {
+    this.loading = false;
+  }
+
 }

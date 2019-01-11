@@ -6,6 +6,8 @@ import org.zhangxiao.paladin2.core.admin.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
+    @Override
+    public List<SysRole> getList() {
+        return baseMapper.getList();
+    }
 }

@@ -36,4 +36,9 @@ public class SysAdminRoleService extends ServiceImpl<SysAdminRoleMapper, SysAdmi
     public void deleteRelation(Long adminId) {
         baseMapper.deleteRelation(adminId);
     }
+
+    @Override
+    public int countRoleUserNum(Long roleId) {
+        return baseMapper.countRoleUseNum(roleId);
+    }
 }

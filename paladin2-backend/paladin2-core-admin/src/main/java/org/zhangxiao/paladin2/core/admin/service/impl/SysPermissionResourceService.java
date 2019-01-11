@@ -15,7 +15,10 @@ import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
 import org.zhangxiao.paladin2.core.admin.mapper.SysPermissionResourceMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysPermissionResourceService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * <p>
@@ -126,9 +129,9 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
     private NavNodeVO convertToNavNodeVO(PermissionVO permissionVO) {
         NavNodeVO nodeVO = new NavNodeVO();
         String tag = sysPermissionService.getLastTag(permissionVO.getPermission());
-        nodeVO.setTag(tag);
-        nodeVO.setPath(permissionVO.getNavPath());
-        nodeVO.setTitle(permissionVO.getTitle());
+        nodeVO.setTag(tag)
+              .setPath(permissionVO.getNavPath())
+              .setTitle(permissionVO.getTitle());
         return nodeVO;
     }
 

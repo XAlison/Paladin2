@@ -24,6 +24,7 @@ import lombok.experimental.Accessors;
 #if(${entityLombokModel})
 @Getter
 @Setter
+@Accessors(chain = true)
 #if(${superEntityClass})
 @EqualsAndHashCode(callSuper = true)
 #end

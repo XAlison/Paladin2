@@ -4,15 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
-@Getter
 @Setter
+@Getter
 @Accessors(chain = true)
-public class NavNodeVO {
-    private String tag;
+public class RoleDTO {
+    @NotBlank(message = "角色名称不能为空")
     private String title;
-    private String path;
-    private List<NavNodeVO> children = new ArrayList<>();
+    private String des;
 }

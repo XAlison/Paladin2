@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 10/01/2019 17:44:53
+ Date: 11/01/2019 12:29:12
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `sys_admin`  (
   `status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `unique_username`(`account`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统管理员' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统管理员' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_admin
@@ -70,15 +70,10 @@ CREATE TABLE `sys_permission`  (
 -- Records of sys_permission
 -- ----------------------------
 INSERT INTO `sys_permission` VALUES ('config', '配置', '', 107, '/config');
-INSERT INTO `sys_permission` VALUES ('config:order', '订单配置', 'config', 100, '/config/order');
 INSERT INTO `sys_permission` VALUES ('config:permission', '权限配置', 'config', 100, '/config/permission');
 INSERT INTO `sys_permission` VALUES ('config:permission:admin', '管理员', 'config:permission', 101, NULL);
 INSERT INTO `sys_permission` VALUES ('config:permission:resource', '资源', 'config:permission', 103, '');
 INSERT INTO `sys_permission` VALUES ('config:permission:role', '角色', 'config:permission', 102, NULL);
-INSERT INTO `sys_permission` VALUES ('config:share', '分享配置', 'config', 100, '/config/share');
-INSERT INTO `sys_permission` VALUES ('config:shop', '店铺配置', 'config', 100, '/config/shop');
-INSERT INTO `sys_permission` VALUES ('config:shop:course', '教程编辑', 'config:shop', 100, '/config/shop/course/edit');
-INSERT INTO `sys_permission` VALUES ('config:user', '用户配置', 'config', 100, '/config/user');
 INSERT INTO `sys_permission` VALUES ('goods', '商品', '', 106, '/goods');
 INSERT INTO `sys_permission` VALUES ('goods:category', '分类列表', 'goods', 100, '/goods/category');
 INSERT INTO `sys_permission` VALUES ('goods:collocation', '搭配列表', 'goods', 100, '/goods/collocation');
@@ -213,15 +208,7 @@ CREATE TABLE `sys_role`  (
   `title` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '名称',
   `des` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role
--- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '商品管理员', '管理商品');
-INSERT INTO `sys_role` VALUES (2, '超級管理員', '無限制');
-INSERT INTO `sys_role` VALUES (3, '角色管理员', '只能管理角色');
-INSERT INTO `sys_role` VALUES (4, '权限管理员', '后台权限配置均可访问');
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_role_permission
@@ -232,25 +219,5 @@ CREATE TABLE `sys_role_permission`  (
   `permission` varbinary(255) NOT NULL,
   UNIQUE INDEX `only`(`role_id`, `permission`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role_permission
--- ----------------------------
-INSERT INTO `sys_role_permission` VALUES (1, 0x636F6E6669673A7065726D697373696F6E3A726F6C65);
-INSERT INTO `sys_role_permission` VALUES (1, 0x636F6E6669673A75736572);
-INSERT INTO `sys_role_permission` VALUES (1, 0x676F6F64733A6C697374);
-INSERT INTO `sys_role_permission` VALUES (1, 0x6F72646572);
-INSERT INTO `sys_role_permission` VALUES (1, 0x73686F70);
-INSERT INTO `sys_role_permission` VALUES (2, 0x636F6E666967);
-INSERT INTO `sys_role_permission` VALUES (2, 0x676F6F6473);
-INSERT INTO `sys_role_permission` VALUES (2, 0x686F6D65);
-INSERT INTO `sys_role_permission` VALUES (2, 0x6F72646572);
-INSERT INTO `sys_role_permission` VALUES (2, 0x73686F70);
-INSERT INTO `sys_role_permission` VALUES (2, 0x75736572);
-INSERT INTO `sys_role_permission` VALUES (3, 0x636F6E6669673A7065726D697373696F6E3A726F6C65);
-INSERT INTO `sys_role_permission` VALUES (4, 0x636F6E6669673A7065726D697373696F6E3A7265736F75726365);
-INSERT INTO `sys_role_permission` VALUES (4, 0x636F6E6669673A7065726D697373696F6E3A726F6C65);
-INSERT INTO `sys_role_permission` VALUES (4, 0x686F6D65);
-INSERT INTO `sys_role_permission` VALUES (4, 0x75736572);
 
 SET FOREIGN_KEY_CHECKS = 1;

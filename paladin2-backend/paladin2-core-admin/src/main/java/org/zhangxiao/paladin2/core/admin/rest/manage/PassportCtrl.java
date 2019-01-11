@@ -1,4 +1,4 @@
-package org.zhangxiao.paladin2.core.admin.rest;
+package org.zhangxiao.paladin2.core.admin.rest.manage;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.shiro.SecurityUtils;
@@ -56,6 +56,7 @@ public class PassportCtrl {
         return map;
     }
 
+    //TODO 需要实际测试下，现在写的肯定问题的，后面再优化下
     @PostMapping("/manage/passport/logout")
     public void logout() {
         Subject subject = SecurityUtils.getSubject();

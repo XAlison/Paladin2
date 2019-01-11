@@ -15,6 +15,9 @@
     <select id="getList" resultType="java.lang.Long">
         select role_id from sys_admin_role where admin_id = #{adminId}
     </select>
+    <select id="countRoleUseNum" resultType="java.lang.Integer">
+        select count(*) from sys_admin_role where role_id = #{roleId}
+    </select>
     <insert id="saveRelation">
         INSERT INTO `sys_admin_role` (`admin_id`, `role_id`)
         VALUES

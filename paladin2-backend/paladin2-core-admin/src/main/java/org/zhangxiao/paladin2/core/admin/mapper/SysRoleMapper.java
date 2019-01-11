@@ -4,6 +4,8 @@ import org.zhangxiao.paladin2.core.admin.entity.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
+    List<SysRole> getList();
 }

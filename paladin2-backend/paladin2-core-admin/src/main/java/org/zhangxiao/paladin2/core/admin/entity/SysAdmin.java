@@ -22,6 +22,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 
 
 @TableName("`sys_admin`")

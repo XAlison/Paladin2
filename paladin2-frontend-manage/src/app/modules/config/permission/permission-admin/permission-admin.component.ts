@@ -77,6 +77,8 @@ export class PermissionAdminComponent implements OnInit {
         this.message.success('保存成功');
         this.adminModal.saveDone();
         this.loadList();
+      }, err => {
+        this.adminModal.saveError();
       });
     } else {
       for (const controlKey of Object.keys(this.adminModal.form.controls)) {

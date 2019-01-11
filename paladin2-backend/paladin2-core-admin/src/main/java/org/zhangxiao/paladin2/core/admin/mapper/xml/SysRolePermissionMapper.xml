@@ -12,5 +12,18 @@
     <sql id="Base_Column_List">
         role_id, permission
     </sql>
+    <insert id="createPermissions">
+        INSERT INTO `sys_role_permission` (`role_id`, `permission`)
+        VALUES
+        <foreach collection="permissionList" item="item" separator="," index="idx">
+            (#{roleId}, #{item})
+        </foreach>
+    </insert>
+    <delete id="deleteByRoleId">
+        delete from sys_role_permission where role_id = #{roleId}
+    </delete>
+    <select id="getList" resultType="java.lang.String">
+        select permission from sys_role_permission where role_id = #{roleId}
+    </select>
 
 </mapper>

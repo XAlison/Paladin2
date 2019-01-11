@@ -13,5 +13,8 @@
     <sql id="Base_Column_List">
         id, title, des
     </sql>
+    <select id="getList" resultType="org.zhangxiao.paladin2.core.admin.entity.SysRole">
+        select * from sys_role order by id desc
+    </select>
 
 </mapper>

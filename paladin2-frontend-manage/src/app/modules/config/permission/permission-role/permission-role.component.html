@@ -12,15 +12,13 @@
       <tr>
         <th width="60">ID</th>
         <th width="100">角色</th>
-        <th width="200">描述</th>
         <th>操作</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let item of basicTable.data">
         <td class="text-nowrap">{{item.id}}</td>
-        <td class="text-nowrap">{{item.title}}</td>
-        <td class="text-nowrap">{{item.des}}</td>
+        <td class="text-nowrap">{{item.title}} <span class="text-grey" *ngIf="item.des">({{item.des}})</span></td>
         <td class="text-nowrap">
           <button (click)="showUpdate(item)" nz-button nzType="default"><i nz-icon type="edit"></i></button>
           <button (click)="openPermissionDrawer(item.id,item.title)" nz-button nzType="primary">
@@ -57,11 +55,6 @@
       <nz-form-label [nzRequired]="true" [nzSpan]="4" nzFor="des">角色描述</nz-form-label>
       <nz-form-control [nzSpan]="20" nzHasFeedback>
         <input type="text" nz-input formControlName="des" placeholder="请输入角色描述"/>
-        <nz-form-explain *ngIf="roleModal.form.get('des').dirty && roleModal.form.get('des').errors">
-          <ng-container *ngIf="roleModal.form.get('des').hasError('required')">
-            角色描述不能为空
-          </ng-container>
-        </nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </form>

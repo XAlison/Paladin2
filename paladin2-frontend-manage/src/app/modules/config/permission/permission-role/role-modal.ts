@@ -10,7 +10,7 @@ export class RoleModal {
   constructor(fb: FormBuilder) {
     this.form = fb.group({
       title: [null, [Validators.required]],
-      des: [null, [Validators.required]],
+      des: [null],
     });
   }
 

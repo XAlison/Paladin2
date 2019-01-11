@@ -63,10 +63,10 @@ public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> imple
         if (StrUtils.isEmpty(adminDTO.getPassword())) {
             throw new BizException(AdminBizError.ADMIN_PASSWORD_REQUIRED);
         }
-        sysAdmin.setAccount(adminDTO.getAccount());
-        sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
-        sysAdmin.setCreateTime(LocalDateTime.now());
-        sysAdmin.setNickName(adminDTO.getNickName());
+        sysAdmin.setAccount(adminDTO.getAccount())
+                .setPassword(md5Psw(adminDTO.getPassword()))
+                .setCreateTime(LocalDateTime.now())
+                .setNickName(adminDTO.getNickName());
         sysAdmin.insert();
         sysAdminRoleService.saveRelation(sysAdmin.getId(), adminDTO.getRoleIdList());
     }
@@ -76,12 +76,12 @@ public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> imple
         SysAdmin sysAdmin = Optional.ofNullable(adminId)
                 .map(id -> baseMapper.selectById(adminId))
                 .orElseThrow(new BizException(AdminBizError.ADMIN_NOT_EXIST));
-        sysAdmin.setNickName(adminDTO.getNickName());
         if (!StrUtils.isEmpty(adminDTO.getPassword())) {
             sysAdmin.setPassword(md5Psw(adminDTO.getPassword()));
         }
-        sysAdmin.setNickName(adminDTO.getNickName());
-        sysAdmin.setUpdateTime(LocalDateTime.now());
+        sysAdmin.setNickName(adminDTO.getNickName())
+                .setNickName(adminDTO.getNickName())
+                .setUpdateTime(LocalDateTime.now());
         sysAdmin.updateById();
         sysAdminRoleService.saveRelation(sysAdmin.getId(), adminDTO.getRoleIdList());
     }

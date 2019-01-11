@@ -22,4 +22,6 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
     List<PermissionVO> getVOListByParent(@Param("parent") String parent);
 
     List<String> getAllPermission();
+
+    int countChildren(@Param("permission") String permission);
 }

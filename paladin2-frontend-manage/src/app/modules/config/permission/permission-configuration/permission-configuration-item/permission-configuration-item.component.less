@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+}
+
+.item {
+  &-self, &-placeholder {
+    border-left: #e8e8e8 1px solid;
+    border-bottom: #e8e8e8 1px solid;
+    &:hover{
+      background: #e6f7ff;
+    }
+  }
+
+  &-self {
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  &-placeholder {
+    flex: 1;
+  }
+
+  &-children {
+    flex: 1;
+  }
+}

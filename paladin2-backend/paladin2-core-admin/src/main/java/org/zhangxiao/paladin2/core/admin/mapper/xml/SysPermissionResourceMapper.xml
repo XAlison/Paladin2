@@ -17,5 +17,16 @@
     <select id="getListByTypeId" resultType="org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource">
         select * from sys_permission_resource where type_id = #{typeId}
     </select>
+    <select id="getListByPermission" resultType="org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource">
+        select * from sys_permission_resource where permission = #{permission}
+    </select>
+    <select id="getOne" resultType="org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource">
+        select *
+        from sys_permission_resource
+        where
+            permission = #{permission}
+          and type_id = #{typeId}
+          and `data` = #{data}
+    </select>
 
 </mapper>

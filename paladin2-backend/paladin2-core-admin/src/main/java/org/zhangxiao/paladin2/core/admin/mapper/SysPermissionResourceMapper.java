@@ -17,4 +17,8 @@ import java.util.List;
 public interface SysPermissionResourceMapper extends BaseMapper<SysPermissionResource> {
 
     List<SysPermissionResource> getListByTypeId(@Param("typeId") Integer typeId);
+
+    List<SysPermissionResource> getListByPermission(@Param("permission") String permission);
+
+    SysPermissionResource getOne(@Param("permission") String permission, @Param("typeId") Integer typeId, @Param("data") String data);
 }

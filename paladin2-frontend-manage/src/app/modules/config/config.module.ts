@@ -9,6 +9,7 @@ import { PermissionComponent } from './permission/permission.component';
 import { PermissionAdminComponent } from './permission/permission-admin/permission-admin.component';
 import { PermissionRoleComponent } from './permission/permission-role/permission-role.component';
 import { PermissionRoleDrawerComponent } from './permission/permission-role-drawer/permission-role-drawer.component';
+import { PermissionConfigurationModule } from './permission/permission-configuration/permission-configuration.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PermissionRoleDrawerComponent } from './permission/permission-role-draw
     SharedModule,
     ConfigRoutingModule,
     NgZorroAntdModule,
+    PermissionConfigurationModule,
   ]
 })
 export class ConfigModule {

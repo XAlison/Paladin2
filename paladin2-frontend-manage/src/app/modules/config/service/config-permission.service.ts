@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 
 const api = {
@@ -19,6 +21,7 @@ const api = {
 
   permissionSave: () => `/manage/sys/permission/save`,
   permissionDel: (permission) => `/manage/sys/permission/delete/${ permission }`,
+
   resourcesGet: (permission) => `/manage/sys/permission/resources/${ permission }`,
   resourcesCreate: () => `/manage/sys/permission/resources/create`,
   resourcesDelete: () => `/manage/sys/permission/resources/delete`,
@@ -29,6 +32,7 @@ const api = {
   providedIn: 'root'
 })
 export class ConfigPermissionService {
+  private apiUrls;
 
   constructor(
     private httpClient: HttpClient,
@@ -78,5 +82,39 @@ export class ConfigPermissionService {
 
   getPermissionTree() {
     return this.httpClient.get<any>(api.permissionTree());
+  }
+
+  permissionSave(data: { title: string, permission: string, path?: string, sort: Number }) {
+    return this.httpClient.post<any>(api.permissionSave(), data);
+  }
+
+  permissionDelete(permission) {
+    return this.httpClient.get<any>(api.permissionDel(permission));
+  }
+
+  permissionResource(permission) {
+    return this.httpClient.get<any>(api.resourcesGet(permission));
+  }
+
+  permissionResourceCreate(data: { permission: string, typeId: number, data: string }) {
+    return this.httpClient.post<any>(api.resourcesCreate(), data);
+  }
+
+  permissionResourceDelete(data: { permission: string, typeId: number, data: string }) {
+    return this.httpClient.post<any>(api.resourcesDelete(), data);
+  }
+
+  getApiUrls(): Observable<Array<{ type: string, url: string }>> {
+    return of(this.apiUrls).pipe(
+      switchMap((urls) => {
+        if (urls === null) {
+          return this.httpClient.get<any>(api.resourcesApiUrls()).pipe(
+            tap(res => this.apiUrls = res)
+          );
+        } else {
+          return of(urls);
+        }
+      })
+    );
   }
 }

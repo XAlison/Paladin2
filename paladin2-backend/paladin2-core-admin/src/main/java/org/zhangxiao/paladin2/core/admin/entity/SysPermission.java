@@ -21,6 +21,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 
 
 @TableName("`sys_permission`")
@@ -60,7 +61,7 @@ public class SysPermission extends Model<SysPermission> {
     private Integer sort;
 
     /**
-     * 导航路径
+     * 前端路径（只有一二级有）
      */
     @TableField("nav_path")
     private String navPath;

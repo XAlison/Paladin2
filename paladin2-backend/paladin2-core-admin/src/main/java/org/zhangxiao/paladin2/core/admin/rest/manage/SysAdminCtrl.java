@@ -39,23 +39,24 @@ public class SysAdminCtrl {
         return sysAdminService.getList();
     }
 
-    @PostMapping("/manage/sys/admin/save")
-    public void setAdmin(@RequestBody @Validated AdminDTO adminDTO, BindingResult bindingResult) throws BizException {
+    @PostMapping("/manage/sys/admin/create")
+    public void create(@RequestBody @Validated AdminDTO adminDTO, BindingResult bindingResult) throws BizException {
         DTOUtils.checkThrow(bindingResult);
         sysAdminService.createOne(adminDTO);
     }
-    @PostMapping("/manage/sys/admin/save/{adminId}")
+
+    @PostMapping("/manage/sys/admin/{adminId}/update")
     public void setAdmin(@PathVariable(required = false) Long adminId, @RequestBody @Validated AdminDTO adminDTO, BindingResult bindingResult) throws BizException {
         DTOUtils.checkThrow(bindingResult);
         sysAdminService.updateOne(adminId, adminDTO);
     }
 
-    @GetMapping("/manage/sys/admin/delete/{adminId}")
+    @GetMapping("/manage/sys/admin/{adminId}/delete")
     public void delAdmin(@PathVariable Long adminId) throws BizException {
         sysAdminService.deleteOne(adminId);
     }
 
-    @GetMapping("/manage/sys/admin/get/{adminId}")
+    @GetMapping("/manage/sys/admin/{adminId}")
     public AdminRowVO getAdmin(@PathVariable Long adminId) throws BizException {
         return Optional.ofNullable(sysAdminService.getOne(adminId))
                 .orElse(new AdminRowVO());

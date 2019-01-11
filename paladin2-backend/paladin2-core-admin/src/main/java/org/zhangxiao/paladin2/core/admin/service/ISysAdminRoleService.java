@@ -34,4 +34,6 @@ public interface ISysAdminRoleService extends IService<SysAdminRole> {
      * @param adminId 管理员ID
      */
     void deleteRelation(Long adminId);
+
+    int countRoleUserNum(Long roleId);
 }

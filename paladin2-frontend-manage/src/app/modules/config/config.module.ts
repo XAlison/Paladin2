@@ -7,11 +7,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PermissionComponent } from './permission/permission.component';
 import { PermissionAdminComponent } from './permission/permission-admin/permission-admin.component';
+import { PermissionRoleComponent } from './permission/permission-role/permission-role.component';
+import { PermissionRoleDrawerComponent } from './permission/permission-role-drawer/permission-role-drawer.component';
 
 @NgModule({
   declarations: [
     PermissionComponent,
     PermissionAdminComponent,
+    PermissionRoleComponent,
+    PermissionRoleDrawerComponent,
   ],
   imports: [
     CommonModule,

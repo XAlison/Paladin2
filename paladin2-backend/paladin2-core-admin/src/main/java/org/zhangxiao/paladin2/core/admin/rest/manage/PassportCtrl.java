@@ -56,6 +56,7 @@ public class PassportCtrl {
         return map;
     }
 
+    //TODO 需要实际测试下，现在写的肯定问题的，后面再优化下
     @PostMapping("/manage/passport/logout")
     public void logout() {
         Subject subject = SecurityUtils.getSubject();

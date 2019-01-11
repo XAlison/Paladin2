@@ -33,9 +33,9 @@ public interface IBizError {
                 @Override
                 public String getMessage() {
                     if (isSuffix) {
-                        return message + ":" + extMessage;
+                        return message +  extMessage;
                     } else {
-                        return extMessage + ":" + message;
+                        return extMessage +  message;
                     }
                 }
             };

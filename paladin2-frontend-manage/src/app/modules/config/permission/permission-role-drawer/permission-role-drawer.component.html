@@ -1,0 +1,18 @@
+<ng-template #header>
+  【{{name}}】权限配置
+  <button nz-button nzType="primary" nzSize="small" (click)="savePermission()">保存</button>
+</ng-template>
+<nz-drawer (nzOnClose)="close()" [nzClosable]="false" [nzTitle]="header" [nzVisible]="visible" [nzWidth]="600"
+           nzPlacement="right">
+  <nz-spin [nzSpinning]="loading">
+    <nz-tree
+      #tree
+      (nzClick)="clickTest($event)"
+      [nzData]="permissionTree"
+      [nzCheckedKeys]="defaultCheckedKeys"
+      [nzExpandAll]="true"
+      [nzCheckable]="true"
+      [nzMultiple]="true">
+    </nz-tree>
+  </nz-spin>
+</nz-drawer>

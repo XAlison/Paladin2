@@ -1,11 +1,15 @@
 package org.zhangxiao.paladin2.core.admin.service;
 
-import org.zhangxiao.paladin2.core.admin.entity.SysRolePermission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.core.admin.bean.RolePermissionDTO;
+import org.zhangxiao.paladin2.core.admin.entity.SysRolePermission;
+
+import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author 听风zx
@@ -13,4 +17,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysRolePermissionService extends IService<SysRolePermission> {
 
+    void savePermissions(Long roleId, List<String> permissionList) throws BizException;
+
+    void deletePermissions(Long roleId);
+
+    List<String> getPermissions(Long roleId);
 }

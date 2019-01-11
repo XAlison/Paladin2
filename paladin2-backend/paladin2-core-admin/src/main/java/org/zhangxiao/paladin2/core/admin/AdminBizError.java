@@ -17,6 +17,9 @@ public enum AdminBizError implements IBizError {
     ADMIN_LOGIN_FAILURE                 (100005, "管理员登录失败"),
     ADMIN_TOKEN_CREATE_FAILURE          (100006, "管理员token创建失败"),
     ADMIN_TOKEN_INVALID                 (100007, "管理员token不合法"),
+    ROLE_NOT_EXIST                      (100008, "角色不存在或已删除"),
+    ROLE_PERMISSION_DUPLICATE           (100009, "角色权限存在重复项"),
+    ROLE_IN_USE                         (100010, "角色正在使用中"),
     ;
 
     private String scope = "admin";

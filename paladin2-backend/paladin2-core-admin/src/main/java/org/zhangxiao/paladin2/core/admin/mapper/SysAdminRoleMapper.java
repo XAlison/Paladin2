@@ -21,4 +21,6 @@ public interface SysAdminRoleMapper extends BaseMapper<SysAdminRole> {
     void deleteRelation(@Param("adminId") Long adminId);
 
     void saveRelation(@Param("adminId") Long adminId, @Param("roleIdList") List<Long> roleIdList);
+
+    int countRoleUseNum(@Param("roleId") Long roleId);
 }

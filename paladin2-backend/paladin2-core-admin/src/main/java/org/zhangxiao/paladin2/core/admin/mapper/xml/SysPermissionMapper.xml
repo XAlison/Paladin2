@@ -26,5 +26,8 @@
     <select id="getAllPermission" resultType="java.lang.String">
         select permission from sys_permission
     </select>
+    <select id="countChildren" resultType="java.lang.Integer">
+        select count(*) from sys_permission where permission like CONCAT(#{permission},':%' )
+    </select>
 
 </mapper>

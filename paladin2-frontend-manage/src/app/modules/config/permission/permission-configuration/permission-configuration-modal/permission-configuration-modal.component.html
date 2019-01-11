@@ -1,0 +1,65 @@
+<nz-modal (nzOnCancel)="visible = false" *ngIf="form" [(nzVisible)]="visible"
+          [nzFooter]="modalFooter" [nzTitle]="title">
+  <ng-template #modalFooter>
+    <div class="flex-row flex-c-space-between">
+      <div>
+        <button (nzOnConfirm)="deletePermission()" *ngIf="status==='update'" [nzLoading]="deleteLoading"
+                nz-button nz-popconfirm nzPlacement="top" nzTitle="确认删除?"
+                nzType="danger">删除
+        </button>
+      </div>
+      <div>
+        <button (click)="visible=false" nz-button nzType="default">取消</button>
+        <button (click)="savePermission()" [nzLoading]="saveLoading" nz-button nzType="primary">保存
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <form [formGroup]="form" nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="parent">父级</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <nz-cascader [nzOptions]="parentOptions" formControlName="parent" nzChangeOnSelect
+                     nzExpandTrigger="hover" nzPlaceHolder="一级模块，可留空">
+        </nz-cascader>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true" [nzSpan]="6" nzFor="permission">权限表达式</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <nz-input-group *ngIf="parentPermission" [nzAddOnBefore]="parentPermission">
+          <input formControlName="permission" nz-input type="text">
+        </nz-input-group>
+        <input *ngIf="!parentPermission" formControlName="permission" nz-input type="text">
+        <nz-form-explain
+          *ngIf="form.get('permission').dirty && form.get('permission').errors">
+          <ng-container *ngIf="form.get('permission').hasError('required')">
+            权限表达式不能为空
+          </ng-container>
+          <ng-container *ngIf="form.get('permission').hasError('pattern')">
+            请输入a-z或0-9，且必须以a-z开头
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true" [nzSpan]="6" nzFor="title">权限名称</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <input formControlName="title" nz-input type="text">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="path">页面路径</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <input formControlName="path" nz-input type="text">
+        <nz-form-explain>一级模块、二级模块将作为侧边导航</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true" [nzSpan]="6" nzFor="sort">排序</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <input formControlName="sort" nz-input type="number">
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

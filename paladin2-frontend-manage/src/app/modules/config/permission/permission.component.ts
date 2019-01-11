@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./permission.component.less']
 })
 export class PermissionComponent implements OnInit {
-  tabsIdx = 0;
+  tabsIdx = 2;
   constructor() { }
 
   ngOnInit() {

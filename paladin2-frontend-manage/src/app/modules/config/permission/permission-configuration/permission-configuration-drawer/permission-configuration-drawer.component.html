@@ -1,0 +1,63 @@
+<nz-drawer (nzOnClose)="close()" [nzClosable]="false" [nzTitle]="title+':权限资源配置'" [nzVisible]="visible" [nzWidth]="600"
+           nzPlacement="right">
+  <nz-spin [nzSpinning]="dataLoading">
+    <ng-template #api>接口 <a (click)="formShowCreate(1)"><i nz-icon type="plus"></i></a></ng-template>
+    <ng-template #uiPath>界面路由 <a (click)="formShowCreate(2)"><i nz-icon type="plus"></i></a></ng-template>
+    <ng-template #uiElement>界面元素 <a (click)="formShowCreate(3)"><i nz-icon type="plus"></i></a></ng-template>
+    <nz-divider [nzText]="api" nzDashed nzOrientation="left"></nz-divider>
+    <li *ngFor="let item of apiArr">{{item.data}}
+      <a (nzOnConfirm)="delete(1,item.data)"
+         class="text-red" nz-popconfirm nzPlacement="top" nzTitle="确定删除？"
+      ><i nz-icon theme="outline" type="delete"></i></a>
+    </li>
+    <nz-divider [nzText]="uiPath" nzDashed nzOrientation="left"></nz-divider>
+    <li *ngFor="let item of uiPathArr">{{item.data}}
+      <a (nzOnConfirm)="delete(2,item.data)"
+         class="text-red" nz-popconfirm nzPlacement="top" nzTitle="确定删除？"
+      ><i nz-icon theme="outline" type="delete"></i></a>
+    </li>
+    <nz-divider [nzText]="uiElement" nzDashed nzOrientation="left"></nz-divider>
+    <li *ngFor="let item of uiElementArr">{{item.data}}
+      <a (nzOnConfirm)="delete(3,item.data)"
+         class="text-red" nz-popconfirm nzPlacement="top" nzTitle="确定删除？"
+      ><i nz-icon theme="outline" type="delete"></i></a>
+    </li>
+  </nz-spin>
+</nz-drawer>
+
+<nz-modal *ngIf="form" [(nzVisible)]="formVisible" [nzTitle]="formVisibleTitle"
+          (nzOnOk)="formSave()" (nzOnCancel)="formVisible=false" [nzOkLoading]="formSubmitting">
+  <form nz-form [formGroup]="form">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="data">所属权限</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        {{form.get('permission').value}}
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6" nzFor="data">资源类型</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <span *ngIf="form.get('typeId').value === 1">接口</span>
+        <span *ngIf="form.get('typeId').value === 2">界面路由</span>
+        <span *ngIf="form.get('typeId').value === 3">界面元素</span>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true" [nzSpan]="6" nzFor="data">资源数据</nz-form-label>
+      <nz-form-control [nzSpan]="18" nzHasFeedback>
+        <input type="text" nz-input formControlName="data" [nzAutocomplete]="auto"
+               (input)="onResourceInput(form.get('typeId').value,$event.target?.value)">
+        <nz-autocomplete #auto>
+          <nz-auto-option *ngFor="let option of apiOptions" [nzValue]="option.url">[{{option.type}}] {{option.url}}</nz-auto-option>
+        </nz-autocomplete>
+        <nz-form-explain
+          *ngIf="form.get('data').dirty && form.get('data').errors">
+          <ng-container *ngIf="form.get('data').hasError('required')">
+            资源数据不能为空
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+

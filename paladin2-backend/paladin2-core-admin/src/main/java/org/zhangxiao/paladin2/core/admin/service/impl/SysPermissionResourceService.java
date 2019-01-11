@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
+import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.core.admin.AdminBizError;
 import org.zhangxiao.paladin2.core.admin.AdminConst;
 import org.zhangxiao.paladin2.core.admin.bean.NavNodeVO;
+import org.zhangxiao.paladin2.core.admin.bean.PermissionResourceDTO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
 import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
@@ -68,6 +71,11 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
     }
 
     @Override
+    public void cleanResourcesCache(Integer typeId) {
+        resourcesCache.remove(typeId);
+    }
+
+    @Override
     public UiPermissionVO getPermittedUIPermission(Subject subject) {
         UiPermissionVO vo = new UiPermissionVO();
         vo.setUiPaths(getUiPermission(subject, AdminConst.PERMISSION_RESOURCE_TYPE_UI_PATH));
@@ -75,6 +83,34 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
         vo.setUiElements(new HashSet<>());
         vo.setUiNavs(getPermittedNavs(subject));
         return vo;
+    }
+
+    @Override
+    public List<SysPermissionResource> getResourcesByPermission(String permission) {
+        return baseMapper.getListByPermission(permission);
+    }
+
+    @Override
+    public void createOne(PermissionResourceDTO dto) throws BizException {
+        SysPermissionResource resource = baseMapper.getOne(dto.getPermission(), dto.getTypeId(), dto.getData());
+        if (resource != null) {
+            throw new BizException(AdminBizError.PERMISSION_RESOURCE_EXIST);
+        }
+        resource = new SysPermissionResource();
+        resource.setPermission(dto.getPermission());
+        resource.setTypeId(dto.getTypeId());
+        resource.setData(dto.getData());
+        if (resource.insert()) {
+            this.cleanResourcesCache();
+        }
+    }
+
+    @Override
+    public void deleteOne(PermissionResourceDTO dto) {
+        SysPermissionResource resource = baseMapper.getOne(dto.getPermission(), dto.getTypeId(), dto.getData());
+        if (resource != null && resource.deleteById()) {
+            this.cleanResourcesCache(dto.getTypeId());
+        }
     }
 
     /**

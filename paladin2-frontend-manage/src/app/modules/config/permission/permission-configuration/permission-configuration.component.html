@@ -1,0 +1,23 @@
+<pld-permission-configuration-drawer #drawer></pld-permission-configuration-drawer>
+<nz-spin [nzSpinning]="loading">
+  <div class="pld-page">
+    <div class="mb-md">
+      <button nz-button nzType="primary" (click)="showCreate()"><i nz-icon type="plus"></i>新增</button>
+    </div>
+    <div class="item-warpper">
+      <pld-permission-configuration-item [data]="item"
+                                         [deep]="1"
+                                         [parentTitleRoute]="[]"
+                                         [parentOptions]="parentOptions"
+                                         (onDeleteSuccess)="modalDeleteSuccess()"
+                                         (onSaveSuccess)="modalSaveSuccess()"
+                                         *ngFor="let item of permissionData"></pld-permission-configuration-item>
+    </div>
+  </div>
+</nz-spin>
+
+<pld-permission-configuration-modal #modal
+                                    [parentOptions]="parentOptions"
+                                    (onDeleteSuccess)="modalDeleteSuccess()"
+                                    (onSaveSuccess)="modalSaveSuccess()"></pld-permission-configuration-modal>
+

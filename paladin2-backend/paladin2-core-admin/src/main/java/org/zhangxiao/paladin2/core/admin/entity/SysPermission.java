@@ -39,7 +39,7 @@ public class SysPermission extends Model<SysPermission> {
     /**
      * 权限表达式
      */
-    @TableId(value = "permission", type = IdType.NONE)
+    @TableId(value = "permission", type = IdType.INPUT)
     private String permission;
 
     /**

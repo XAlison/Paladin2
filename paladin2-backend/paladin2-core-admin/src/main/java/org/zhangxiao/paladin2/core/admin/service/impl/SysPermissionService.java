@@ -3,6 +3,9 @@ package org.zhangxiao.paladin2.core.admin.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
+import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.core.admin.AdminBizError;
+import org.zhangxiao.paladin2.core.admin.bean.PermissionDTO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermission;
 import org.zhangxiao.paladin2.core.admin.mapper.SysPermissionMapper;
@@ -87,5 +90,47 @@ public class SysPermissionService extends ServiceImpl<SysPermissionMapper, SysPe
             }
         }
         return false;
+    }
+
+    @Override
+    public String getParentPermission(String permission) {
+        int lastColon = permission.lastIndexOf(":");
+        if (lastColon == -1) {
+            return "";
+        } else {
+            return permission.substring(0, lastColon);
+        }
+    }
+
+    @Override
+    public void saveOne(PermissionDTO dto) {
+        String parent = getParentPermission(dto.getPermission());
+        SysPermission sysPermission = baseMapper.selectById(dto.getPermission());
+        if (sysPermission == null) {
+            sysPermission = new SysPermission();
+        }
+        sysPermission.setTitle(dto.getTitle())
+            .setPermission(dto.getPermission())
+            .setNavPath(dto.getPath())
+            .setParent(parent)
+            .setSort(dto.getSort())
+            .insertOrUpdate();
+        // TODO 需要处理权限表达式更新不同步造成的权限不同步问题
+        this.cleanPermissionCache();
+    }
+
+    @Override
+    public void deleteOne(String permission) throws BizException {
+        //判断当前权限是否存在
+        SysPermission sysPermission = baseMapper.selectById(permission);
+        if (sysPermission == null) {
+            throw new BizException(AdminBizError.PERMISSION_NOT_EXIST);
+        }
+        //判断是否有子权限
+        if (baseMapper.countChildren(permission) > 0) {
+            throw new BizException(AdminBizError.PERMISSION_HAS_CHILDREN);
+        }
+        sysPermission.deleteById();
+        this.cleanPermissionCache();
     }
 }

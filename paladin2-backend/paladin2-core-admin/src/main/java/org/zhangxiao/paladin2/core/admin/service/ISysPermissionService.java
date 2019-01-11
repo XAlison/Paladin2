@@ -2,7 +2,9 @@ package org.zhangxiao.paladin2.core.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.shiro.subject.Subject;
+import org.zhangxiao.paladin2.common.exception.BizException;
 import org.zhangxiao.paladin2.core.admin.bean.NavNodeVO;
+import org.zhangxiao.paladin2.core.admin.bean.PermissionDTO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermission;
 
@@ -55,4 +57,16 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * 再，遍历子权限，判断是否有子权限授权
      */
     boolean hasAnyPermitted(Subject subject, String permission);
+
+    String getParentPermission(String permission);
+
+    /**
+     * 创建一个新权限
+     */
+    void saveOne(PermissionDTO permissionDTO);
+
+    /**
+     * 删除一个权限
+     */
+    void deleteOne(String permission) throws BizException;
 }

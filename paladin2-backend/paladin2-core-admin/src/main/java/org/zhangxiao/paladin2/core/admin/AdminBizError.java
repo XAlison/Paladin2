@@ -20,6 +20,9 @@ public enum AdminBizError implements IBizError {
     ROLE_NOT_EXIST                      (100008, "角色不存在或已删除"),
     ROLE_PERMISSION_DUPLICATE           (100009, "角色权限存在重复项"),
     ROLE_IN_USE                         (100010, "角色正在使用中"),
+    PERMISSION_NOT_EXIST                (100011, "权限不存在"),
+    PERMISSION_HAS_CHILDREN             (100011, "还存在子权限"),
+    PERMISSION_RESOURCE_EXIST           (100011, "权限资源不存在"),
     ;
 
     private String scope = "admin";

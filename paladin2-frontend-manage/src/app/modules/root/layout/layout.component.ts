@@ -25,6 +25,7 @@ export class LayoutComponent implements OnInit {
     // { path: '/home/3', title: '二级导航3', tag: 'home' },
     // { path: '/home/4', title: '二级导航4', tag: 'home' },
   ];
+  adminNickName: string;
 
   constructor(
     private router: Router,
@@ -45,6 +46,7 @@ export class LayoutComponent implements OnInit {
           }
         }
       });
+    this.adminNickName = this.authService.getNickName();
   }
 
   ngOnInit() {
@@ -55,7 +57,7 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
-    // TODO 退出登录
+    this.authService.logout();
   }
 
   changePassword() {

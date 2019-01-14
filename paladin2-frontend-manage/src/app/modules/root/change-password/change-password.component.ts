@@ -48,6 +48,7 @@ export class ChangePasswordComponent implements OnInit {
       };
       this.submitting = true;
       this.authService.changePassword(data).subscribe(() => {
+        this.messageService.success('新密码设置成功');
         this.cancel();
       }, err => {
         this.submitting = false;

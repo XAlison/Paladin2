@@ -32,7 +32,7 @@ const api = {
   providedIn: 'root'
 })
 export class ConfigPermissionService {
-  private apiUrls;
+  private apiUrls = null;
 
   constructor(
     private httpClient: HttpClient,

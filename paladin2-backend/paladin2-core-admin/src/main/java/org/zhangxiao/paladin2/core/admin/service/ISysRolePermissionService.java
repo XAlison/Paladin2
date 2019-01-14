@@ -17,9 +17,16 @@ import java.util.List;
  */
 public interface ISysRolePermissionService extends IService<SysRolePermission> {
 
+    /**
+     * 保存某个角色的权限
+     */
     void savePermissions(Long roleId, List<String> permissionList) throws BizException;
-
+    /**
+     * 删除某个角色的权限（删除角色的时候使用）
+     */
     void deletePermissions(Long roleId);
-
+    /**
+     * 获取某个角色的权限
+     */
     List<String> getPermissions(Long roleId);
 }

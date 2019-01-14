@@ -18,15 +18,33 @@ import java.util.List;
  */
 public interface ISysRoleService extends IService<SysRole> {
 
+    /**
+     * 获取系统所有角色列表
+     */
     List<SysRole> getList();
 
+    /**
+     * 创建角色
+     */
     void createRole(RoleDTO roleDTO);
 
+    /**
+     * 更新角色
+     */
     void updateRole(Long roleId, RoleDTO roleDTO) throws BizException;
 
+    /**
+     * 删除角色
+     */
     void deleteRole(Long roleId) throws BizException;
 
+    /**
+     * 保存角色权限
+     */
     void savePermissions(Long roleId, RolePermissionDTO dto) throws BizException;
 
+    /**
+     * 获取角色的权限
+     */
     List<String> getPermissions(Long roleId) throws BizException;
 }

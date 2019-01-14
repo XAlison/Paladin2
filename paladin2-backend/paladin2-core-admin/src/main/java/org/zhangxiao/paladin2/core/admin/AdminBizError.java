@@ -22,7 +22,7 @@ public enum AdminBizError implements IBizError {
     ROLE_IN_USE                         (100010, "角色正在使用中"),
     PERMISSION_NOT_EXIST                (100011, "权限不存在"),
     PERMISSION_HAS_CHILDREN             (100011, "还存在子权限"),
-    PERMISSION_RESOURCE_EXIST           (100011, "权限资源不存在"),
+    PERMISSION_RESOURCE_EXIST           (100011, "权限资源已经存在"),
     ;
 
     private String scope = "admin";

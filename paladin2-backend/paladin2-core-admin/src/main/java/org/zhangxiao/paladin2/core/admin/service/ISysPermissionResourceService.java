@@ -3,6 +3,7 @@ package org.zhangxiao.paladin2.core.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.shiro.subject.Subject;
 import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.core.admin.bean.ApiVO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionResourceDTO;
 import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
@@ -64,4 +65,9 @@ public interface ISysPermissionResourceService extends IService<SysPermissionRes
      * 删除一个权限资源
      */
     void deleteOne(PermissionResourceDTO dto);
+
+    /**
+     * 获取/manage下所有路径
+     */
+    List<ApiVO> getApiUrls();
 }

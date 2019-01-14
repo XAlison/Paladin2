@@ -7,21 +7,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
+import org.springframework.web.servlet.mvc.condition.RequestMethodsRequestCondition;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.zhangxiao.paladin2.common.exception.BizException;
+import org.zhangxiao.paladin2.common.util.SpringUtils;
 import org.zhangxiao.paladin2.core.admin.AdminBizError;
 import org.zhangxiao.paladin2.core.admin.AdminConst;
-import org.zhangxiao.paladin2.core.admin.bean.NavNodeVO;
-import org.zhangxiao.paladin2.core.admin.bean.PermissionResourceDTO;
-import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
-import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
+import org.zhangxiao.paladin2.core.admin.bean.*;
 import org.zhangxiao.paladin2.core.admin.entity.SysPermissionResource;
 import org.zhangxiao.paladin2.core.admin.mapper.SysPermissionResourceMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysPermissionResourceService;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -38,6 +39,7 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
     @Autowired
     private SysPermissionService sysPermissionService;
     private Hashtable<Integer, List<SysPermissionResource>> resourcesCache = new Hashtable<>();
+    private List<ApiVO> apiUrlsCache = null;
 
     @Override
     public String[] getApiPermission(String requestURI) {
@@ -111,6 +113,33 @@ public class SysPermissionResourceService extends ServiceImpl<SysPermissionResou
         if (resource != null && resource.deleteById()) {
             this.cleanResourcesCache(dto.getTypeId());
         }
+    }
+
+    @Override
+    public List<ApiVO> getApiUrls() {
+
+        if (apiUrlsCache == null) {
+            apiUrlsCache = new ArrayList<>();
+            RequestMappingHandlerMapping mapping = SpringUtils.getBean(RequestMappingHandlerMapping.class);
+            // 获取url与类和方法的对应信息
+            Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
+            for (Map.Entry<RequestMappingInfo, HandlerMethod> m : map.entrySet()) {
+                ApiVO vo = new ApiVO();
+                RequestMappingInfo info = m.getKey();
+                PatternsRequestCondition p = info.getPatternsCondition();
+                for (String url : p.getPatterns()) {
+                    vo.setUrl(url);
+                }
+                if (vo.getUrl().startsWith("/manage/")) {
+                    RequestMethodsRequestCondition methodsCondition = info.getMethodsCondition();
+                    for (RequestMethod requestMethod : methodsCondition.getMethods()) {
+                        vo.setType(requestMethod.toString());
+                    }
+                    apiUrlsCache.add(vo);
+                }
+            }
+        }
+        return apiUrlsCache;
     }
 
     /**

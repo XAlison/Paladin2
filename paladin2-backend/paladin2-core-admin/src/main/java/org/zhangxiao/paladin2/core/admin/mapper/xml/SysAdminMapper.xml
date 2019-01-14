@@ -21,6 +21,9 @@
     <sql id="Base_Column_List">
         id, account, password, nick_name, mobile, create_time, update_time, login_time, login_count, remark, status
     </sql>
+    <update id="updatePassword">
+        update sys_admin set password = #{newPsw} where id = #{adminId}
+    </update>
 
     <select id="countByAccount" resultType="java.lang.Integer">
         select count(*) from sys_admin where account = #{account}

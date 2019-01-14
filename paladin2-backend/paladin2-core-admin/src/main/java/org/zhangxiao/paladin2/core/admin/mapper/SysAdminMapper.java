@@ -21,4 +21,6 @@ public interface SysAdminMapper extends BaseMapper<SysAdmin> {
     List<AdminRowVO> getRowVOList();
 
     AdminRowVO getRowVO(@Param("adminId") Long adminId);
+
+    int updatePassword(@Param("adminId") Long adminId, @Param("newPsw") String newPsw);
 }

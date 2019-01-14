@@ -10,6 +10,7 @@ import org.zhangxiao.paladin2.common.exception.BizException;
 import org.zhangxiao.paladin2.common.util.DTOUtils;
 import org.zhangxiao.paladin2.core.admin.bean.AdminDTO;
 import org.zhangxiao.paladin2.core.admin.bean.AdminRowVO;
+import org.zhangxiao.paladin2.core.admin.bean.ChangePasswordDTO;
 import org.zhangxiao.paladin2.core.admin.bean.UiPermissionVO;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysAdminService;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysPermissionResourceService;
@@ -60,5 +61,13 @@ public class SysAdminCtrl {
     public AdminRowVO getAdmin(@PathVariable Long adminId) throws BizException {
         return Optional.ofNullable(sysAdminService.getOne(adminId))
                 .orElse(new AdminRowVO());
+    }
+
+    @PostMapping("/manage/sys/admin/change_password")
+    public void getAdmin(@RequestBody @Validated ChangePasswordDTO changePasswordDTO, BindingResult bindingResult) throws BizException {
+        DTOUtils.checkThrow(bindingResult);
+        Long adminId = (Long) SecurityUtils.getSubject().getPrincipal();
+        System.out.println(adminId);
+        sysAdminService.changePassword(adminId, changePasswordDTO);
     }
 }

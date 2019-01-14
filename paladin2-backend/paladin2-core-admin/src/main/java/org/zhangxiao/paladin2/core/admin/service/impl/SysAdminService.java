@@ -9,6 +9,7 @@ import org.zhangxiao.paladin2.common.util.StrUtils;
 import org.zhangxiao.paladin2.core.admin.AdminBizError;
 import org.zhangxiao.paladin2.core.admin.bean.AdminDTO;
 import org.zhangxiao.paladin2.core.admin.bean.AdminRowVO;
+import org.zhangxiao.paladin2.core.admin.bean.ChangePasswordDTO;
 import org.zhangxiao.paladin2.core.admin.entity.SysAdmin;
 import org.zhangxiao.paladin2.core.admin.mapper.SysAdminMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysAdminService;
@@ -103,5 +104,15 @@ public class SysAdminService extends ServiceImpl<SysAdminMapper, SysAdmin> imple
                 .orElseThrow(() -> new BizException(AdminBizError.ADMIN_NOT_EXIST));
         vo.setRoleIdList(sysAdminRoleService.getRoleIdList(adminId));
         return vo;
+    }
+
+    @Override
+    public void changePassword(Long adminId, ChangePasswordDTO changePasswordDTO) throws BizException {
+        SysAdmin admin = Optional.ofNullable(baseMapper.selectById(adminId))
+                .orElseThrow(new BizException(AdminBizError.ADMIN_NOT_EXIST));
+        if (!md5Psw(changePasswordDTO.getOldPsw()).equals(admin.getPassword())) {
+            throw new BizException(AdminBizError.OLD_PSW_ERROR);
+        }
+        baseMapper.updatePassword(adminId, md5Psw(changePasswordDTO.getNewPsw()));
     }
 }

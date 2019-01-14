@@ -6,10 +6,13 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.zhangxiao.paladin2.core.admin.shiro.AdminPermissionStorage;
+import org.zhangxiao.paladin2.common.util.StrUtils;
+import org.zhangxiao.paladin2.core.admin.shiro.AdminFilter;
+import org.zhangxiao.paladin2.core.admin.shiro.storage.AdminPermissionStorage;
 import org.zhangxiao.paladin2.core.admin.shiro.AdminToken;
 import org.zhangxiao.paladin2.common.exception.BizException;
 import org.zhangxiao.paladin2.common.util.DTOUtils;
@@ -19,6 +22,7 @@ import org.zhangxiao.paladin2.core.admin.bean.AdminLoginDTO;
 import org.zhangxiao.paladin2.core.admin.entity.SysAdmin;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysAdminService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -56,13 +60,14 @@ public class PassportCtrl {
         return map;
     }
 
-    //TODO 需要实际测试下，现在写的肯定问题的，后面再优化下
-    @PostMapping("/manage/passport/logout")
-    public void logout() {
-        Subject subject = SecurityUtils.getSubject();
-        Long adminId = (Long) subject.getPrincipal();
-        adminPermissionStorage.remove(adminId);
-        subject.logout();
+    @GetMapping("/manage/passport/logout")
+    public void logout(HttpServletRequest request) throws BizException {
+        String jwtStr = AdminFilter.getJwtStr(request);
+        if (!StrUtils.isEmpty(jwtStr)) {
+            AdminToken adminToken = AdminToken.parse(jwtStr, adminProperties.getJwtSecret());
+            Long adminId = (Long) adminToken.getPrincipal();
+            adminPermissionStorage.remove(adminId);
+        }
     }
 
 }

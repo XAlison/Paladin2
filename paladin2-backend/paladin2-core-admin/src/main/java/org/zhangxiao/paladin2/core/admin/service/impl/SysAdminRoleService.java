@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.zhangxiao.paladin2.core.admin.entity.SysAdminRole;
 import org.zhangxiao.paladin2.core.admin.mapper.SysAdminRoleMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysAdminRoleService;
-import org.zhangxiao.paladin2.core.admin.shiro.AdminPermissionStorage;
+import org.zhangxiao.paladin2.core.admin.shiro.storage.AdminPermissionStorage;
 
 import java.util.List;
 

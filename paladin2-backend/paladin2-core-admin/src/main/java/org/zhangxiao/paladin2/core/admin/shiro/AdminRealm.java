@@ -15,6 +15,7 @@ import org.zhangxiao.paladin2.core.admin.AdminConst;
 import org.zhangxiao.paladin2.core.admin.entity.SysAdmin;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysAdminService;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysPermissionService;
+import org.zhangxiao.paladin2.core.admin.shiro.storage.AdminPermissionStorage;
 
 public class AdminRealm extends AuthorizingRealm {
 

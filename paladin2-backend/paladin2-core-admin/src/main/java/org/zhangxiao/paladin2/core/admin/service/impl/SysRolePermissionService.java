@@ -2,14 +2,12 @@ package org.zhangxiao.paladin2.core.admin.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.zhangxiao.paladin2.common.exception.BizException;
-import org.zhangxiao.paladin2.core.admin.AdminBizError;
-import org.zhangxiao.paladin2.core.admin.bean.RolePermissionDTO;
 import org.zhangxiao.paladin2.core.admin.entity.SysRolePermission;
 import org.zhangxiao.paladin2.core.admin.mapper.SysRolePermissionMapper;
 import org.zhangxiao.paladin2.core.admin.service.ISysRolePermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import org.zhangxiao.paladin2.core.admin.shiro.AdminPermissionStorage;
+import org.zhangxiao.paladin2.core.admin.shiro.storage.AdminPermissionStorage;
 
 import java.util.List;
 

@@ -8,9 +8,10 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, NotFoundComponent, HomeComponent, LayoutComponent],
+  declarations: [LoginComponent, NotFoundComponent, HomeComponent, LayoutComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     SharedModule,

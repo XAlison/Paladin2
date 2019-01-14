@@ -12,6 +12,7 @@ const STORAGE_KEY_NICKNAME = 'NickName';
 const apiUrls = {
   login: () => `/manage/passport/login`,
   logout: () => `/manage/passport/logout`,
+  changePassword: () => `/manage/sys/admin/change_password`,
   uiPermission: () => `/manage/sys/admin/ui_permission`,
 };
 
@@ -54,6 +55,10 @@ export class AuthService {
       this.nickName = localStorage.getItem(STORAGE_KEY_NICKNAME);
     }
     return this.nickName;
+  }
+
+  changePassword(data: { oldPsw: string, newPsw: string }) {
+    return this.httpClient.post(apiUrls.changePassword(), data);
   }
 
   logout() {

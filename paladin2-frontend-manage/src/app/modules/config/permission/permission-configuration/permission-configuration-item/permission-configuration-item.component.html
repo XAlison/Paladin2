@@ -1,9 +1,11 @@
 <div [ngClass]="{'item-placeholder':deep==3}" class="item-self">
   <div class="text-nowrap">
-    <a (click)="showUpdate(data)" nz-tooltip nzPlacement="top" nzTitle="编辑">
+    <a (click)="doUpdateInfo(data)" nz-tooltip nzPlacement="top" nzTitle="编辑">
       {{data.title}}
     </a>
-    <a (click)="loadResource()" class="ml-xs" nz-tooltip nzPlacement="top" nzTitle="资源设置">
+    <a (click)="doUpdateResource({permission:data.permission,title: titleRoute.join('>')})" class="ml-xs" nz-tooltip
+       nzPlacement="top"
+       nzTitle="资源设置">
       <i nz-icon type="setting"></i>
     </a>
   </div>
@@ -16,13 +18,9 @@
                                      [deep]="deep+1"
                                      [parentTitleRoute]="titleRoute"
                                      [parentOptions]="parentOptions"
-                                     (onDeleteSuccess)="modalDeleteSuccess()"
-                                     (onSaveSuccess)="modalSaveSuccess()"
+                                     (updateInfo)="doUpdateInfo($event)"
+                                     (updateResource)="doUpdateResource($event)"
   ></pld-permission-configuration-item>
 </div>
 <div *ngIf="data.children && data.children.length==0 && deep<=2" class="item-placeholder"></div>
 
-<pld-permission-configuration-modal #modal
-                                    [parentOptions]="parentOptions"
-                                    (onDeleteSuccess)="modalDeleteSuccess()"
-                                    (onSaveSuccess)="modalSaveSuccess()"></pld-permission-configuration-modal>

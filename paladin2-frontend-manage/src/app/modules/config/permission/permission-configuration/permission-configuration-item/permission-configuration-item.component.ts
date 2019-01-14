@@ -11,8 +11,8 @@ export class PermissionConfigurationItemComponent implements OnInit {
   @Input() deep: number;
   @Input() parentOptions = [];
   @Input() parentTitleRoute = [];
-  @Output() onSaveSuccess = new EventEmitter();
-  @Output() onDeleteSuccess = new EventEmitter();
+  @Output() updateInfo = new EventEmitter<any>();
+  @Output() updateResource = new EventEmitter<any>();
   @ViewChild('modal') permissionModal: PermissionConfigurationModalComponent;
   titleRoute = [];
 
@@ -23,19 +23,11 @@ export class PermissionConfigurationItemComponent implements OnInit {
     this.titleRoute = [...this.parentTitleRoute, this.data.title];
   }
 
-  showCreate() {
-    this.permissionModal.showCreate();
+  doUpdateInfo(evt) {
+    this.updateInfo.emit(evt);
   }
 
-  showUpdate(permissionItem) {
-    this.permissionModal.showUpdate(permissionItem);
-  }
-
-  modalSaveSuccess() {
-    this.onSaveSuccess.emit();
-  }
-
-  modalDeleteSuccess() {
-    this.onDeleteSuccess.emit();
+  doUpdateResource(evt: { permission: string, title: string }) {
+    this.updateResource.emit(evt);
   }
 }

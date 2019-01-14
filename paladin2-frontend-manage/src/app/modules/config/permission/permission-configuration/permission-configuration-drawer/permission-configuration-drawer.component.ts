@@ -10,7 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class PermissionConfigurationDrawerComponent implements OnInit {
 
-  title = false;
+  title = '';
   visible = false;
   dataLoading = false;
   apiArr = [];
@@ -38,15 +38,15 @@ export class PermissionConfigurationDrawerComponent implements OnInit {
   ngOnInit() {
   }
 
-  load(permission, title) {
+  load(data: { permission: string, title: string }) {
     this.visible = false;
     this.dataLoading = false;
     this.formVisible = false;
     this.formSubmitting = false;
     this.formVisibleTitle = '';
-    this.title = title;
+    this.title = data.title;
     this.visible = true;
-    this.permission = permission;
+    this.permission = data.permission;
     this.reload();
   }
 

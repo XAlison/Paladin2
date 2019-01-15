@@ -5,7 +5,7 @@ import java.io.IOException;
  * 代码生成器
  * </p>
  */
-public class MybatisPlusGenerator {
+public class DemoGenerator {
     // 数据库相关设置
     private static final String DB_HOST = "localhost";
     private static final String DB_PORT = "3306";

@@ -100,7 +100,7 @@ public class CommonGenerator {
 
     private static String getModulePath() {
         try {
-            String path = HDGenerator.class.getResource("/").toURI().getPath();
+            String path = CommonGenerator.class.getResource("/").toURI().getPath();
             return new File(path).getParentFile().getParentFile().getCanonicalPath();
         } catch (Exception e) {
             throw new RuntimeException(e);

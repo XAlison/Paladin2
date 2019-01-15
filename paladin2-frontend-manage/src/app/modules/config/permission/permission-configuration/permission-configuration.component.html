@@ -1,4 +1,3 @@
-<pld-permission-configuration-drawer #drawer></pld-permission-configuration-drawer>
 <nz-spin [nzSpinning]="loading">
   <div class="pld-page">
     <div class="mb-md">
@@ -9,8 +8,8 @@
                                          [deep]="1"
                                          [parentTitleRoute]="[]"
                                          [parentOptions]="parentOptions"
-                                         (onDeleteSuccess)="modalDeleteSuccess()"
-                                         (onSaveSuccess)="modalSaveSuccess()"
+                                         (updateInfo)="doUpdateInfo($event)"
+                                         (updateResource)="doUpdateResource($event)"
                                          *ngFor="let item of permissionData"></pld-permission-configuration-item>
     </div>
   </div>
@@ -20,4 +19,5 @@
                                     [parentOptions]="parentOptions"
                                     (onDeleteSuccess)="modalDeleteSuccess()"
                                     (onSaveSuccess)="modalSaveSuccess()"></pld-permission-configuration-modal>
+<pld-permission-configuration-drawer #drawer></pld-permission-configuration-drawer>
 

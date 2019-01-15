@@ -16,11 +16,13 @@ import java.util.List;
 @Component
 public interface SysAdminRoleMapper extends BaseMapper<SysAdminRole> {
 
-    List<Long> getList(@Param("adminId") Long adminId);
+    List<Long> getRoleIdList(@Param("adminId") Long adminId);
 
     void deleteRelation(@Param("adminId") Long adminId);
 
     void saveRelation(@Param("adminId") Long adminId, @Param("roleIdList") List<Long> roleIdList);
 
     int countRoleUseNum(@Param("roleId") Long roleId);
+
+    List<Long> getAdminIdList(@Param("roleId") Long roleId);
 }

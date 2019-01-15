@@ -12,11 +12,14 @@
     <sql id="Base_Column_List">
         admin_id, role_id
     </sql>
-    <select id="getList" resultType="java.lang.Long">
+    <select id="getRoleIdList" resultType="java.lang.Long">
         select role_id from sys_admin_role where admin_id = #{adminId}
     </select>
     <select id="countRoleUseNum" resultType="java.lang.Integer">
         select count(*) from sys_admin_role where role_id = #{roleId}
+    </select>
+    <select id="getAdminIdList" resultType="java.lang.Long">
+        select admin_id from sys_admin_role where role_id = #{roleId}
     </select>
     <insert id="saveRelation">
         INSERT INTO `sys_admin_role` (`admin_id`, `role_id`)

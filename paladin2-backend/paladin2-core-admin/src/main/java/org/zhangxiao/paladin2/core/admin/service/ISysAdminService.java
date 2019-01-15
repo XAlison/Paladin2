@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.zhangxiao.paladin2.common.exception.BizException;
 import org.zhangxiao.paladin2.core.admin.bean.AdminDTO;
 import org.zhangxiao.paladin2.core.admin.bean.AdminRowVO;
+import org.zhangxiao.paladin2.core.admin.bean.ChangePasswordDTO;
 import org.zhangxiao.paladin2.core.admin.entity.SysAdmin;
 
 import java.util.List;
@@ -49,4 +50,6 @@ public interface ISysAdminService extends IService<SysAdmin> {
      * @return 单个AdminRowVO，如果不存在，则返回一个AdminRowVO的新实力
      */
     AdminRowVO getOne(Long adminId) throws BizException;
+
+    void changePassword(Long adminId, ChangePasswordDTO changePasswordDTO) throws BizException;
 }

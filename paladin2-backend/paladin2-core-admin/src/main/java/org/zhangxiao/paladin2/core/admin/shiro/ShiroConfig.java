@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.zhangxiao.paladin2.core.admin.AdminProperties;
 import org.zhangxiao.paladin2.core.admin.service.impl.SysPermissionResourceService;
+import org.zhangxiao.paladin2.core.admin.shiro.storage.AdminPermissionStorage;
+import org.zhangxiao.paladin2.core.admin.shiro.storage.AdminPermissionStorageInMemory;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -133,6 +135,11 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
         return authorizationAttributeSourceAdvisor;
+    }
+
+    @Bean
+    public AdminPermissionStorage adminPermissionStorage() {
+        return new AdminPermissionStorageInMemory();
     }
 
 }

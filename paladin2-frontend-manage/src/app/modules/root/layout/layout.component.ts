@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'pld-layout',
@@ -11,6 +12,7 @@ import { filter } from 'rxjs/operators';
 export class LayoutComponent implements OnInit {
 
   @HostBinding('class.unfold') folding = false;
+  @ViewChild('changePasswordModal') changePasswordModal: ChangePasswordComponent;
   rootNavs = [
     // { path: '/home', title: '首页', tag: 'home' },
     // { path: '/user', title: '用户', tag: 'user' },
@@ -25,6 +27,7 @@ export class LayoutComponent implements OnInit {
     // { path: '/home/3', title: '二级导航3', tag: 'home' },
     // { path: '/home/4', title: '二级导航4', tag: 'home' },
   ];
+  adminNickName: string;
 
   constructor(
     private router: Router,
@@ -45,6 +48,7 @@ export class LayoutComponent implements OnInit {
           }
         }
       });
+    this.adminNickName = this.authService.getNickName();
   }
 
   ngOnInit() {
@@ -55,10 +59,10 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
-    // TODO 退出登录
+    this.authService.logout();
   }
 
   changePassword() {
-    // TODO 修改密码
+    this.changePasswordModal.open();
   }
 }

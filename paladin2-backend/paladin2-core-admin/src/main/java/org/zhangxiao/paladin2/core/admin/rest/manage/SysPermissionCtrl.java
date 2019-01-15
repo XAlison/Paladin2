@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.zhangxiao.paladin2.common.exception.BizException;
 import org.zhangxiao.paladin2.common.util.DTOUtils;
+import org.zhangxiao.paladin2.core.admin.bean.ApiVO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionDTO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionResourceDTO;
 import org.zhangxiao.paladin2.core.admin.bean.PermissionVO;
@@ -54,6 +55,10 @@ public class SysPermissionCtrl {
     public void deleteResource(@RequestBody @Validated PermissionResourceDTO dto, BindingResult bindingResult) throws BizException {
         DTOUtils.checkThrow(bindingResult);
         sysPermissionResourceService.deleteOne(dto);
+    }
+    @GetMapping("/manage/sys/permission/resources/all_api_urls")
+    public List<ApiVO> getAllApiUrls(){
+        return sysPermissionResourceService.getApiUrls();
     }
 
 }

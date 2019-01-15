@@ -1,9 +1,9 @@
 <nz-drawer (nzOnClose)="close()" [nzClosable]="false" [nzTitle]="title+':权限资源配置'" [nzVisible]="visible" [nzWidth]="600"
            nzPlacement="right">
   <nz-spin [nzSpinning]="dataLoading">
-    <ng-template #api>接口 <a (click)="formShowCreate(1)"><i nz-icon type="plus"></i></a></ng-template>
-    <ng-template #uiPath>界面路由 <a (click)="formShowCreate(2)"><i nz-icon type="plus"></i></a></ng-template>
-    <ng-template #uiElement>界面元素 <a (click)="formShowCreate(3)"><i nz-icon type="plus"></i></a></ng-template>
+    <ng-template #api>接口权限 <a (click)="formShowCreate(1)"><i nz-icon type="plus"></i></a></ng-template>
+    <ng-template #uiPath>UI路径权限 <a (click)="formShowCreate(2)"><i nz-icon type="plus"></i></a></ng-template>
+    <ng-template #uiElement>UI元素权限 <a (click)="formShowCreate(3)"><i nz-icon type="plus"></i></a></ng-template>
     <nz-divider [nzText]="api" nzDashed nzOrientation="left"></nz-divider>
     <li *ngFor="let item of apiArr">{{item.data}}
       <a (nzOnConfirm)="delete(1,item.data)"
@@ -37,9 +37,9 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="6" nzFor="data">资源类型</nz-form-label>
       <nz-form-control [nzSpan]="18" nzHasFeedback>
-        <span *ngIf="form.get('typeId').value === 1">接口</span>
-        <span *ngIf="form.get('typeId').value === 2">界面路由</span>
-        <span *ngIf="form.get('typeId').value === 3">界面元素</span>
+        <span *ngIf="form.get('typeId').value === 1">接口权限</span>
+        <span *ngIf="form.get('typeId').value === 2">UI路径权限</span>
+        <span *ngIf="form.get('typeId').value === 3">UI元素权限</span>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

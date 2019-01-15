@@ -11,6 +11,8 @@ const STORAGE_KEY_NICKNAME = 'NickName';
 
 const apiUrls = {
   login: () => `/manage/passport/login`,
+  logout: () => `/manage/passport/logout`,
+  changePassword: () => `/manage/sys/admin/change_password`,
   uiPermission: () => `/manage/sys/admin/ui_permission`,
 };
 
@@ -55,10 +57,16 @@ export class AuthService {
     return this.nickName;
   }
 
+  changePassword(data: { oldPsw: string, newPsw: string }) {
+    return this.httpClient.post(apiUrls.changePassword(), data);
+  }
+
   logout() {
-    localStorage.removeItem(STORAGE_KEY_TOKEN);
-    localStorage.removeItem(STORAGE_KEY_NICKNAME);
-    this.router.navigate(['/login']);
+    this.httpClient.get(apiUrls.logout()).subscribe(() => {
+      localStorage.removeItem(STORAGE_KEY_TOKEN);
+      localStorage.removeItem(STORAGE_KEY_NICKNAME);
+      this.router.navigate(['/login']);
+    });
   }
 
   cleanUiPermission() {

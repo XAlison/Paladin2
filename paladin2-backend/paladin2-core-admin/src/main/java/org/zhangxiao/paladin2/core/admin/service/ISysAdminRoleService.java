@@ -31,9 +31,16 @@ public interface ISysAdminRoleService extends IService<SysAdminRole> {
 
     /**
      * 删除管理员与角色的关联
-     * @param adminId 管理员ID
      */
     void deleteRelation(Long adminId);
 
+    /**
+     * 获取某个角色，有多少用户正在使用
+     */
     int countRoleUserNum(Long roleId);
+
+    /**
+     * 根据获取所有持有该角色的管理员ID列表
+     */
+    List<Long>  getAdminIdList(Long roleId);
 }

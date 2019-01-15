@@ -9,38 +9,8 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * <p>
- * 代码生成器
- * </p>
- */
-public class MybatisPlusGenerator {
-    // 数据库相关设置
-    private static final String DB_HOST = "localhost";
-    private static final String DB_PORT = "3306";
-    private static final String DB_NAME = "paladin2";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "root";
-    // 指定需要生成的表名（没有指定，则全部生成）
-    private static String[] tables = new String[]{
-           "sys_admin",
-           // "sys_admin_role",
-           // "sys_permission",
-           // "sys_permission_resource",
-           // "sys_role",
-           // "sys_role_permission",
-    };
-    // 指定生成的目录（以整个工程的根目录为准）
-    private static final String OUT_PATH = "/paladin2-core-admin/src/main/java";
-    // 指定生成的目录（以整个工程的根目录为准）
-    private static final String PACKAGE_NAME = "org.zhangxiao.paladin2.core.admin";
-
-    /**
-     * <p>
-     * MySQL 生成演示
-     * </p>
-     */
-    public static void main(String[] args) throws IOException {
+public class CommonGenerator {
+    public static void generate(String DB_HOST,String DB_PORT,String DB_NAME,String DB_USERNAME,String DB_PASSWORD,String[] tables,String tablePrefix,String OUT_PATH,String PACKAGE_NAME) throws IOException {
         if (tables.length == 0) {
             tables = null;
         }
@@ -101,6 +71,9 @@ public class MybatisPlusGenerator {
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         // strategy.setTablePrefix("fw_");// 此处可以修改为您的表前缀
+        if (tablePrefix != null && tablePrefix.length() > 0) {
+            strategy.setTablePrefix(tablePrefix);
+        }
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setInclude(tables); // 需要生成的表
         strategy.setEntityLombokModel(true);
@@ -127,11 +100,10 @@ public class MybatisPlusGenerator {
 
     private static String getModulePath() {
         try {
-            String path = MybatisPlusGenerator.class.getResource("/").toURI().getPath();
+            String path = CommonGenerator.class.getResource("/").toURI().getPath();
             return new File(path).getParentFile().getParentFile().getCanonicalPath();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
 }

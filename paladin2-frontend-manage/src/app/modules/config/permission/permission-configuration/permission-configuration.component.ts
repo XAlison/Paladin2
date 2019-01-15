@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfigPermissionService } from '../../service/config-permission.service';
 import { FormBuilder } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
 import { PermissionConfigurationDrawerComponent } from './permission-configuration-drawer/permission-configuration-drawer.component';
 import { PermissionConfigurationModalComponent } from './permission-configuration-modal/permission-configuration-modal.component';
 
@@ -16,12 +15,11 @@ export class PermissionConfigurationComponent implements OnInit {
   permissionData = [];
   parentOptions = [];
   @ViewChild('modal') permissionModal: PermissionConfigurationModalComponent;
-  @ViewChild('drawer') resourcesModal: PermissionConfigurationDrawerComponent;
+  @ViewChild('drawer') resourcesDrawer: PermissionConfigurationDrawerComponent;
 
   constructor(
     private fb: FormBuilder,
     private permissionService: ConfigPermissionService,
-    private nzMessageService: NzMessageService,
   ) {
 
 
@@ -53,13 +51,17 @@ export class PermissionConfigurationComponent implements OnInit {
   modalSaveSuccess() {
     this.loadData();
   }
+
   modalDeleteSuccess() {
     this.loadData();
   }
 
+  doUpdateInfo($event: any) {
+    this.permissionModal.showUpdate($event);
+  }
 
-  loadResource(permission, titleArr: Array<string>) {
-    this.resourcesModal.load(permission, titleArr.join('>'));
+  doUpdateResource($event: any) {
+    this.resourcesDrawer.load($event);
   }
 
   private flushParentOptions() {
@@ -84,5 +86,4 @@ export class PermissionConfigurationComponent implements OnInit {
     }
     this.parentOptions = options;
   }
-
 }
